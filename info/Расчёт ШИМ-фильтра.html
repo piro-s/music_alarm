@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang='ru' xml:lang='ru' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>Расчёт ШИМ-фильтра</title>
+<base href="https://chipinfo.pro/" />
+<meta https-equiv="content-type" content="text/html; charset=windows-1251" />
+<meta name="description" content="Крупнейший справочник по электронике" />
+<meta name="keywords" content="электроника, электротехника, компоненты, электронные, база, резисторы, конденсаторы, транзисторы, микросхемы, тиристоры, диоды, стабилитроны, аналоги, стабилизаторы, микроконтроллеры" />
+<meta name='yandex-verification' content='4443d67e06aa747c' />
+<meta name="viewport" content="width=device-width, initial-scale=0.6" />
+<link rel="stylesheet" href="https://chipinfo.pro/style/style.css" />
+<link rel="shortcut icon" href="https://chipinfo.pro/style/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="https://chipinfo.pro/style/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="https://chipinfo.pro/style/favicon.svg" type="image/svg+xml ">
+<link rel="manifest" href="https://chipinfo.pro/manifest.json" />
+<meta property="og:title" content="ChipInfo" />
+<meta property="og:site_name" content="ChipInfo" />
+<meta property="og:description" content="Крупнейший справочник по электронике" />
+<meta property="og:url" content="https://chipinfo.pro/">
+<meta property="og:type" content="website" />
+<meta name="yandex-tableau-widget" content="logo=https://chipinfo.pro/style/favicon.png, color=#f5f5f5" />
+<meta name="theme-color" content="#cccc">
+<script type="text/javascript">
+	var themeChanged = false;
+	document.addEventListener('readystatechange', function(){
+		if (document.readyState === 'complete' || document.readyState === 'load' || document.readyState === 'interactive') {
+			if (getCookie('siteTheme') === 'dark' && !themeChanged) {
+				document.body.className = 'dark';
+				document.getElementById('theme-selector').getElementsByClassName('custom-radio')[0].classList.toggle('checked');
+				themeChanged = true;
+			}
+		}
+	});
+
+	window.needRemoveGET = true;
+</script>
+
+</head>
+<body>
+<div id="header"></div>
+<div id="main-menu-background">
+<div id="main-menu-block">
+<div id="menu-items-container">
+<li class="main-menu-item" ><a href="/" id="main-menu-homelink"><div class="main-menu-linkpics">&nbsp; </div></a></li>
+<li class="main-menu-item" ><a href="/progs" id="main-menu-calclink"><div class="main-menu-linkpics">&nbsp; </div></a></li>
+<li class="main-menu-item"><a href="article">Статьи</a></li>
+<li class="main-menu-item" onclick="javascript:mainMenu(1);"><a>Cправочные данные</a>
+<ul id="chapter1" style="display: none;" class="main-lowmenu">
+      <li><a href="infos/materials">Параметры различных материалов</a></li>
+      <li><a href="infos/physics">Физические параметры и величины</a></li>
+      <li><a href="infos/treatment">Обработка поверхностей</a></li>
+      <li><a href="infos/climatic.shtml">Виды климатического исполнения</a></li>
+      <li><a href="infos/protocols">Описания протоколов</a></li>
+      <li><a href="antennas">Антенны и радиопередающие устройства</a></li>
+      <li><a href="infos/eskd.shtml">ЕСКД</a></li>
+      <li><a href="books">Книги</a></li>
+    </ul>
+</li>
+<li class="main-menu-item"><a href="schematic">Схемы</a></li>
+<li class="main-menu-item" onclick="javascript:mainMenu(2);"><a>Компоненты</a>
+    <ul id="chapter2" style="display: none;" class="main-lowmenu">
+      <li><a href="elements/acoustics">Акустические компоненты</a></li>
+      <li><a href="elements/rezistors">Резисторы</a></li>
+      <li><a href="elements/capacitor">Конденсаторы</a></li>
+      <li><a href="elements/chip">Микросхемы</a></li>
+      <li><a href="mcu">Микроконтроллеры</a></li>
+      <li><a href="label/choke.shtml">Индуктивности</a></li>
+      <li><a href="elements/transistors">Транзисторы</a></li>
+      <li><a href="elements/diodes">Диоды</a></li>
+      <li><a href="elements/vacuum_tubes">Радиолампы</a></li>
+      <li><a href="elements/batteries">Аккумуляторы</a></li>
+    </ul>
+</li>
+</div>
+
+<div id="search-container">
+
+<div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'https://chipinfo.pro/find.shtml','arrow':false,'bg':'transparent','fontsize':14,'fg':'#000000','language':'ru','logo':'rb','publicname':'Поиск по ChipInfo.pro','suggest':false,'target':'_self','tld':'ru','type':3,'usebigdictionary':false,'searchid':2018356,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'поиск по сайту...','input_placeholderColor':'#aaaaaa','input_borderColor':'#777777'}"><form action="https://yandex.ru/search/site/" method="get" target="_self" accept-charset="utf-8"><input type="hidden" name="searchid" value="2018356"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value="windows-1251"/><input type="search" name="text" value=""/><input type="submit" value="Найти"/></form></div>
+<style type="text/css">.ya-page_js_yes .ya-site-form_inited_no { display: none; }</style>
+<script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'https:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+</div>
+
+<div id="main-menu-mobile-icon" onclick="javascript:mainMenu(11111);"><span >&equiv;</span></div>
+</div>
+
+</div>
+
+
+<div id="content-container">
+
+<div id="content-center-column">
+
+<div class="post" itemscope itemtype="http://schema.org/Article">
+<div class="h1" itemprop="name">Расчёт фильтров для ШИМ</div><time datetime="2017-04-01">1 Апреля 2017</time>
+<br/><hr size="1px" color="#8a8a8a"/>
+<div itemprop="articleBody">
+В статье речь пойдёт про расчёт простейших фильтрующих цепей для сглаживания широтно-импульсной модуляции. Что такое ШИМ, где он применяется и как его реализовать читайте в отдельной статье.
+<br /><br />
+Первое, на чём следует заострить внимание - это назначение цепи, для которой вы собрались строить фильтр. Немного упрощая схемы с ШИМ можно поделить на два типа:
+<br /><br />
+<ul class="unmarked">
+<li><a href="/article/basics_of_circuitry/pwm_filter.shtml#Signal">Сигнальные цепи с ШИМ</a></li>
+<li><a href="/article/basics_of_circuitry/pwm_filter.shtml#Power">Силовые цепи с ШИМ</a></li>
+</ul>
+<br />
+Примером сигнального ШИМ служит, например, простейший ЦАП, под силовым ШИМ чаще всего имеется ввиду ШИМ-сигнал на выходе силовых ключей, например в импульсных источниках питания (ИИП). Строго говоря, в источниках питания сам сигнал ШИМ тоже используется в сигнальной цепи (управление транзисторами) и на выходе таких источников сигнал повторяет форму управляющих сигналов, однако имеет более высокую мощность, потому они требуют фильтров позволяющих пропускать большие мощности.
+<br /><br />
+<h2><a name="Signal">Фильтрация ШИМ в сигнальных цепях</a></h2>
+Для простых сигнальных цепей с высокоомной нагрузкой наиболее оптимальной схемой фильтрации является интегрируюшая RC-цепочка, являющаяся по сути простейшим фильтром нижних частот. Понятие "интегрирующая RC-цепь" применяется при рассмотрении импульсных характеристик данной цепи.
+<p style="text-align:center;">
+<img src="article/basics_of_circuitry/image/rc-lpf.png" alt="Простейший фильтр нижних частот и его АЧХ.">
+<br />
+Рис.1. Простейший фильтр нижних частот - интегрирующая RC-цепь и её АЧХ.
+</p><br />
+Основная характеристика фильтра это <b>частота среза</b> (<i>на рисунке 1 обозначена угловая частота среза - &omega;<sub>с</sub></i>) - амплитуда колебаний данной данной частоты на выходе фильтра ослабляется до уровня ~0.707 (-3 Дб) от входного значения. Частота среза определяется по следующей формуле:
+<p style="text-align:center;">
+<img src="article/basics_of_circuitry/image/f-rc.png" alt="Частота среза RC-фильтра">
+</p>
+Тут R и С - сопротивление резистора в омах и ёмкость конденсатора в фарадах. Необходимо помнить, что для корректной работы сглаживающего фильтра постоянная времени RC-цепочки (<i>&#964; = R &middot; C</i>)  должна быть как можно меньше периода ШИМа, тогда за один период не будет происходить полный заряд-разряд конденсатора.
+<br /><br />
+Следующий важный параметр, позволяющий расчитать ослабление колебаний на заданной частоте это <b>коэффициент передачи</b> фильтра - это отношение K = U<sub>вых</sub>/U<sub>вх</sub>. Для данной RC-цепочки коэффициент передачи рассчитывается следующим образом:
+<p style="text-align:center;">
+<img src="article/basics_of_circuitry/image/k-rc.png" alt="Коэффициент передачи RC-фильтра">
+</p>
+<br />
+Зная эти формулы и учтя постоянное падение напряжения на резисторе можно приближённо рассчитать фильтр с нужными характеристиками - например, задавшись имеющейся ёмкостью, либо необходимым уровнем пульсаций.
+<br /><br />
+<h3>Калькулятор ШИМ-фильтра на RC-цепочке</h3>
+<table>
+<tr><td><b>Входные данные:</b></td><td><b>Расчётные значения:</b></td></tr>
+
+<tr><td><table>
+<tr>
+<td>Частота ШИМ</td>
+<td><input size="8" value="1000" onchange="javascript:PWMRCFilter();" id="PWM_RC_Freq" type="text"></td>
+<td>Гц</td></tr>
+
+<tr>
+<td>Коэффициент заполнения ШИМ<br /><small>(duty cycle)</small></td>
+<td><input size="8" value="50" onchange="javascript:PWMRCFilter();" id="PWM_RC_Duty_cycle" type="text"></td>
+<td>%</td></tr>
+
+<tr>
+<td>Напряжение на входе</td>
+<td><input size="8" value="5" onchange="javascript:PWMRCFilter();" id="PWM_RC_Volt_in" type="text"></td>
+<td>В</td></tr>
+
+<tr>
+<td>Сопротивление резистора фильтра</td>
+<td><input size="8" value="200" onchange="javascript:PWMRCFilter();" id="PWM_RC_R" type="text"></td>
+<td>Ом</td></tr>
+
+<tr>
+<td>Сопротивление нагрузки R<sub>н</sub></td>
+<td><input size="8" value="10000" onchange="javascript:PWMRCFilter();" id="PWM_RC_Load_R" type="text"></td>
+<td>Ом</td></tr>
+
+<tr>
+<td>Ёмкость конденсатора</td>
+<td><input size="8" value="100" onchange="javascript:PWMRCFilter();" id="PWM_RC_C" type="text"></td>
+<td>мкФ</td></tr>
+
+<tr><td colspan="3">&nbsp;</td></tr>
+</table>
+</td>
+
+<td>
+<table>
+<tr>
+<td>Частота среза RC-фильтра</td>
+<td><span id="PWM_RC_Cutoff" style="color:#666; font-style:italic;">-</span> &nbsp;Гц</td></tr>
+
+<tr>
+<td>Амплитуда пульсаций на частоте ШИМ</td>
+<td><span id="PWM_RC_Attenuation" style="color:#666; font-style:italic;">-</span> &nbsp;В</td></tr>
+<tr>
+<td>Коэффициент пульсаций на выходе</td>
+<td><span id="PWM_RC_Attenuation_percent" style="color:#666; font-style:italic;">-</span> &nbsp;%</td></tr>
+
+<tr>
+<td>Напряжение на выходе <br /><small>(с учётом потерь на резисторе фильтра)</small></td>
+<td><span id="PWM_RC_Volt_out" style="color:#666; font-style:italic;">-</span> &nbsp;В</td></tr>
+
+<tr>
+<td><p id="PWM_RC_Tau_Text">Постоянная времени RC-цепи</p></td>
+<td><span id="PWM_RC_Tau" style="color:#666; font-style:italic;">-</span> &nbsp;сек</td></tr>
+
+<tr>
+<td><p id="PWM_RC_Period_Text">Период ШИМ</p></td>
+<td><span id="PWM_RC_Period" style="color:#666; font-style:italic;">-</span> &nbsp;сек</td></tr>
+
+<tr><td colspan="3"><p id="PWM_RC_Warning" style="color:red; display:none;">Постоянная времени цепи (R &middot; C) не должна быть сильно меньше периода ШИМ!</p></td></tr>
+
+<tr>
+<td>Потери на резисторе фильтра <br /><small>(не менее)</small></td>
+<td><span id="PWM_RC_loss_on_resistor" style="color:#666; font-style:italic;">-</span> &nbsp;Вт</td></tr>
+</table>
+</td></tr>
+<table>
+<br /><br />
+<i>Обратите внимание - если вы хотите получать из ШИМ-сигнала сглаженный синусоидальный сигнал, необходимо чтобы частота среза фильтра была выше максимальной частоты сигнала, а значит частота ШИМ должна быть ещё выше.</i>
+<br /><br />
+<h2><a name="Power">Фильтрация ШИМ в силовых цепях</a></h2>
+В силовых цепях, при низких сопротивлениях нагрузки (например обмотки электродвигателей), потери в резисторе фильтра становятся весьма существенны, поэтому в подобных случаях применяются ФНЧ на индуктивностях и конденсаторах.
+<p style="text-align:center;">
+<img src="article/basics_of_circuitry/image/lc-lpf.png" alt="Фильтр нижних частот на LC-цепочке и его АЧХ.">
+<br />
+Рис.2. Фильтр нижних частот на LC-контуре и его АЧХ.
+</p><br />
+LC-фильтр представляет из себя элементарный колебательный контур, который имеет собственную частоту резонанса, поэтому его реальная АЧХ будет несколько отличаться от АЧХ, приведённой на рисунке 2.
+<br /><br />
+Поскольку речь в данной статье идёт о фильтре для силовых цепей, при расчёте фильтра нужно учитывать, что основная гармоника входящего напряжения тоже должна ослабляться фильтром, следовательно, его резонансная частота должна быть ниже частоты ШИМ.
+<br /><br />
+Формула для расчёта частоты резонанса LC-контура:
+<br />
+<p style="text-align:center; font-style:italic;">f = 1/(2 &middot; &#960; &middot; (L &middot; C)<sup>0.5</sup>)</p>
+<br />
+Если частота резонанса контура совпадёт с частотой ШИМ, LC-контур может перейти в режим генерации, тогда на выходе может случиться конфуз, посему предлагаю вам данного недоразумения тщательно избегать. Кроме того, при проектировании данного фильтра есть ещё несколько нюансов, которые неплохо бы соблюдать для получения желаемого результата, а именно:
+<br /><br />
+<ol class="marked">
+<li>Для  исключения  резонансных  явлений  на  одной  из  высокочастотных  гармонических  составляющих ёмкость  конденсатора  желательно находить  из условия  равенства  волнового  сопротивления  фильтра  сопротивлению нагрузки: <p style="text-align:center; font-style:italic;">C = L / R<sup>2</sup></p></li>
+<li>Для сглаживания пульсаций таким фильтром желательно, чтобы ёмкостное сопротивление конденсатора для низшей частоты пульсации было как можно меньше сопротивления нагрузки, а также много меньше индуктивного сопротивления дросселя для первой гармоники.</li>
+</ol>
+<br />
+Комплексный коэффициент передачи LC-фильтра рассчитывается по следующей формуле:
+<p style="text-align:center;">
+<img src="article/basics_of_circuitry/image/k-lc.png" alt="Формула расчёта коэффициента передачи LC-фильтра">
+</p>
+<br />
+где n - номер гармонической составляющей входного сигнала, <i>i</i> - мнимая единица, &omega; =  2&#960;f, L - индуктивность дросселя (Гн), C - ёмкость конденсатора (Ф), R - сопротивление нагрузки (Ом).
+<br /><br />
+Из формулы очевидно, что чем выше гармоника, тем лучше она подавляется фильтром, следовательно, достаточно рассчитывать уровень только для первой гармоники.
+<br /><br />
+Чтобы перейти от комплексного представления коэффициента передачи к показательному, нужно найти модуль комплексного числа. Для тех, кто (как и я) спал на парах матана в институте, напомню, модуль комплексного числа считается очень просто:
+<br />
+<p style="text-align:center; font-style:italic;">
+Z = x + iy
+<br /><br />
+r = |Z| = (x<sup>2</sup> + y<sup>2</sup>)<sup>0.5</sup>
+</p>
+<br />
+Так как у нас в формуле коэффициента дробь, просто так сходу посчитать модуль не получится и проще всего посчитать это всё, например в MathCad'е. А для тех, кому лень делать всё самим, я запилил весь расчёт в этот прекрасный калькулятор. Пользуйтесь:
+<br /><br />
+<h3>Калькулятор силового ШИМ-фильтра на LC-контуре</h3>
+<table>
+<tr>
+<td>Частота ШИМ</td>
+<td><input size="8" value="2000" onchange="javascript:PWMLCFilter();" id="PWM_LC_Freq" type="text"></td>
+<td>Гц</td>
+</tr>
+<tr>
+<td>Коэффициент заполнения ШИМ<br /><small>(duty cycle)</small></td>
+<td><input size="8" value="50" onchange="javascript:PWMLCFilter();" id="PWM_LC_Duty_cycle" type="text"></td>
+<td>%</td>
+</tr>
+<tr>
+<td>Напряжение на входе</td>
+<td><input size="8" value="5" onchange="javascript:PWMLCFilter();" id="PWM_LC_Volt_in" type="text"></td>
+<td>В</td>
+</tr>
+<tr>
+<td>Сопротивление нагрузки</td>
+<td><input size="8" value="100" onchange="javascript:PWMLCFilter();" id="PWM_LC_Load_R" type="text"></td>
+<td>Ом</td>
+</tr>
+<tr>
+<td>Индуктивность катушки</td>
+<td><input size="8" value="0.01" onchange="javascript:PWMLCFilter();" id="PWM_LC_L" type="text"></td>
+<td>мГн</td>
+</tr>
+<tr>
+<td>Ёмкость конденсатора</td>
+<td><input size="8" value="10" onchange="javascript:PWMLCFilter();" id="PWM_LC_C" type="text"></td>
+<td>мкФ</td>
+</tr>
+<tr><td colspan="3">&nbsp;</td></tr>
+<tr>
+<td>Амплитуда пульсаций на частоте ШИМ</td>
+<td><input size="8" value="5.08022" id="PWM_LC_Attenuation" type="text" readonly></td>
+<td>В</td>
+</tr>
+<td>Резонансная частота контура</td>
+<td><input size="8" value="7957.74716" id="PWM_LC_Resonance" type="text" readonly></td>
+<td>Гц</td></tr>
+<tr>
+<td>Напряжение на выходе <br /><small>(потери не учитываются)</small></td>
+<td><input size="8" value="2.5" id="PWM_LC_Volt_out" type="text" readonly></td>
+<td>В</td></tr>
+</table>
+<br /><br />
+Обратите внимание - при использовании LC-фильтра следует помнить, что из-за наличия в цепи индуктивности, на выходе могут появляться выбросы обратной полярности. Если полярность импульсов на входе не изменяется (например для изменения направления вращения двигателя) для ограничения амлитуды отрицательных выбросов <i>параллельно конденсатору (?)</i> можно включать диод Шоттки.
+<br /><br />
+</div>
+</div>
+<!-- <br /><br />
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?122"></script>
+<script type="text/javascript">VK.init({apiId:5543885, onlyWidgets: true});</script>
+<div id="vk_comments" class="center"></div>
+<script type="text/javascript">VK.Widgets.Comments("vk_comments", {limit:20, attach:"photo,link"});</script>
+-->
+</div>
+
+
+</div>
+
+<div id="footer">
+<div id="arrow-to-top"><a href="#" id="arrow-to-top-link" rel="nofollow"><div> &and; </div></a></div>
+
+<div id="footer-container">
+<div id="footer-contacts">
+<a href="mailto:contact&#64;chipinfo&#46;pro"><span class="social-icons mail-icon">&nbsp;</span>&nbsp; E-mail</a>
+&nbsp; &nbsp; &nbsp;
+<a href="https://t.me/electrochatic" alt="Чат ChipInfo.pro в Telergam"><span class="social-icons telegram-icon">&nbsp;</span>&nbsp; Telegram</a>
+</div>
+
+<div class="radio-container" id="theme-selector">Тема:
+<div class="custom-radio" onclick="radioButtonsHandler(this, 'changeTheme');">
+    <div class="radio-on-title">Светлая</div>
+    <div class="radio-state-marker no-select"><div class="radio-punkt">&nbsp;</div></div>
+    <div class="radio-off-title">Тёмная</div>
+</div>
+</div>
+
+<div id="footer-counters">
+<!-- Rambler's Top100 code -->
+<!-- <script id="top100Counter" type="text/javascript" src="https://counter.rambler.ru/top100.jcn?2863743"></script> -->
+<noscript>
+<a href="https://top100.rambler.ru/navi/2863743/">
+<img src="https://counter.rambler.ru/top100.cnt?2863743" alt="Rambler's Top100" /></a>
+</noscript>
+<!-- end of Top100 code -->
+
+<!-- Rating@Mail.ru counter -->
+<div style="border:0;position:absolute;left:-9999px;width:0;">
+<img src="https://top-fwz1.mail.ru/counter?id=2330337;js=na" style="border:0;position:absolute;left:-9999px;" alt="Mail.ru counter" />
+</div>
+<!-- end of Mail.ru counter -->
+</div>
+</div>
+
+<br/><br/>
+
+<!-- Yandex.Context -->
+<script type="text/javascript" src="//an.yandex.ru/system/context.js" async></script>
+<!-- Yandex.Context -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter19901995 = new Ya.Metrika({id:19901995, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "https:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+<noscript><div><img src="//mc.yandex.ru/watch/19901995" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script type="text/javascript" src="core/core.js"></script>
+
+</div>
+
+<script type="text/javascript" src="core/tools.js"></script>
+
+</body>
+</html>

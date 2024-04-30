@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)https://cxem.net/mc/mc114.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Музыкальный звонок на МК Attiny13</title>
+<meta name="description" content="Проект музыкального звонка на МК Attiny13. Исходники, проект в Proteus, видео работы.">
+
+<meta name="Author" content="alex98y">
+<meta property="og:title" content="Музыкальный звонок на МК Attiny13">
+<meta property="og:url" content="//cxem.net/mc/mc114.php">
+<meta property="og:description" content="Сломался у меня в квартире звонок. Покупать новый звонок особо не хотелось. Поэтому я решил сделать свой – музыкальный звонок. Для звонка я применил восьми битный AVR микроконтроллер Attiny13 и несколько дискретных компонентов.">
+<meta property="og:image" content="//cxem.net/mc/images/mc114-6.jpg">
+
+<link rel="icon" href="https://cxem.net/images/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://cxem.net/images/favicon-64.png" sizes="64x64" type="image/png">
+<link href="./Музыкальный звонок на МК Attiny13_files/style.css" rel="stylesheet" type="text/css">
+
+<style type="text/css" id="operaUserStyle"></style><script type="text/javascript" async="" src="./Музыкальный звонок на МК Attiny13_files/js"></script><script type="text/javascript" src="./Музыкальный звонок на МК Attiny13_files/context.js.download" async=""></script><script type="text/javascript" async="" src="./Музыкальный звонок на МК Attiny13_files/openapi.js.download"></script><style type="text/css">:root zeus-ad, :root topadblock, :root span[id^="ezoic-pub-ad-placeholder-"], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="sticky_ad_"], :root div[id^="rc-widget-"], :root div[id^="optidigital-adslot"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="div-gpt-"], :root div[id^="dfp-ad-"], :root div[id^="advads_ad_"], :root div[id^="adspot-"], :root div[id^="ads300_250-widget-"], :root div[id^="ads300_100-widget-"], :root div[id^="ads250_250-widget-"], :root div[id^="adrotate_widgets-"], :root div[id^="_vdo_ads_player_ai_"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root div[data-native_ad], :root div[data-mini-ad-unit], :root div[data-insertion], :root div[data-id-advertdfpconf], :root div[data-google-query-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-content="Advertisement"], :root div[data-alias="300x250 Ad 2"], :root div[data-alias="300x250 Ad 1"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-ad-wrapper], :root div[data-ad-placeholder], :root div[class^="native-ad-"], :root div[data-dfp-id], :root div[class^="kiwi-ad-wrapper"], :root div[class^="Adstyled__AdWrapper-"], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root article.ad, :root ark-top-ad, :root app-advertisement, :root app-ad, :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"][target="_blank"] + .ob_source, :root a[onmousedown^="this.href='http://paid.outbrain.com/network/redir?"][target="_blank"] + .ob_source, :root a[href^="https://yogacomplyfuel.com/"], :root a[href^="https://www.sugarinstant.com/?partner_id="], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.nudeidols.com/cams/"], :root a[href^="https://www.mypornstarcams.com/landing/click/"], :root a[href^="https://www.kingsoffetish.com/tour?partner_id="], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.googleadservices.com/pagead/aclk?"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root div[class^="Display_displayAd"], :root a[href^="https://www.sheetmusicplus.com/?aff_id="], :root a[href^="https://www.bang.com/?aff="], :root a[href^="https://www.adxsrve.com/"], :root a[href^="https://www.5mno3.com/"], :root a[href^="https://wirewar.website/"], :root a[href^="https://visit-website.com/"], :root a[href^="https://twinrdsyn.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://tsartech.g2afse.com/"], :root a[href^="https://trk.sportsflix4k.club/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://traffdaq.com/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root a[href^="https://taghaugh.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root a[href^="https://streamate.com/landing/click/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://slkmis.com/"], :root a[href^="https://sTaRtGAMing.net/tienda/"], :root citrus-ad-wrapper, :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"][target="_blank"], :root a[href^="https://sTaRTgamInG.net/tienda/"], :root [data-adblockkey], :root a[href^="https://sTARtgamIng.net/tienda/"], :root .OUTBRAIN[data-widget-id^="FMS_REELD_"], :root [data-role="tile-ads-module"], :root a[href^="https://adsrv4k.com/"], :root a[href^="https://go.xlviirdr.com"], :root a[href^="https://thaudray.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://s.zlinkc.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[data-obtrack^="http://paid.outbrain.com/network/redir?"], :root a[href^="https://reinstandpointdumbest.com/"], :root a[href^="https://go.strpjmp.com/"], :root a[href^="https://refpa4903566.top/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root a[href^="https://pb-track.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root ps-connatix-module, :root div[id^="ad_position_"], :root a[href^="https://ovb.im/"], :root div[id^="ad-div-"], :root a[href^="https://newbinotracs.com/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root [href^="https://stvkr.com/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://loboclick.com"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://lobimax.com/"], :root a[href^="https://lead1.pl/"], :root a[href^="https://refpa.top/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://safesurfingtoday.com/"][href*="?skip="], :root a[href^="https://ads.leovegas.com/redirect.aspx?"], :root a[href^="https://land.brazzersnetwork.com/landing/"], :root a[href^="https://track.adform.net/"], :root [data-css-class="dfp-inarticle"], :root .card-captioned.crd > .crd--cnt > .s2nPlayer, :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://startgamIng.Net/tienda/"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://itubego.com/video-downloader/?affid="], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://incisivetrk.cvtr.io/click?"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root div[data-ad-targeting], :root a[href^="https://hotplaystime.life/"], :root a[href^="https://hot-growngames.life/"], :root [data-revive-zoneid], :root a[href^="https://googleads.g.doubleclick.net/pcs/click"], :root a[href^="https://clk.wrenchsound.store/"], :root a[href^="https://go.zybrdr.com"], :root [href^="http://join.michelle-austin.com/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root a[href^="https://ismlks.com/"], :root a[href^="//a.bestcontentfare.top/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://azpresearch.club/"], :root a[href^="https://go.xlirdr.com"], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://go.admjmp.com/"], :root [href^="https://kingered-banctours.com/"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a-ad, :root a[href^="https://affiliate.rusvpn.com/click.php?"], :root a[href^="https://geniusdexchange.com/"], :root a[href^="https://frameworkdeserve.com/"], :root a[href^="https://flirtandsweets.life/"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://financeads.net/tc.php?"], :root div[data-native-ad], :root a[href^="https://engine.trackingdesks.com/"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://www.reimageplus.com/"], :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://dl-protect.net/"], :root [href="//jjgirls.com/sex/ChaturbateCams"], :root a[href^="https://datingoffers30.info/"], :root a[href^="https://clixtrac.com/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root ad-shield-ads, :root a[href^="https://sTartGAMinG.net/tienda/"], :root AD-TRIPLE-BOX, :root a[href^="https://click.hoolig.app/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="http://www.gfrevenge.com/landing/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root [class^="s2nPlayer"], :root a[href^="https://chaturbate.jjgirls.com/?track="], :root a[href^="https://chaturbate.com/in/?track="], :root a[href^="https://chaturbate.com/in/?tour="], :root a[href^="https://cams.imagetwist.com/in/?track="], :root a[href^="https://go.gldrdr.com/"], :root a[href^="https://buqkrzbrucz.com/"], :root a[href^="https://affcpatrk.com/"], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="https://bluedelivery.pro/"], :root a[href^="https://black77854.com/"], :root a[href^="https://bc.game/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://batheunits.com/"], :root a[target="_blank"][onmousedown="this.href^='http://paid.outbrain.com/network/redir?"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="//whulsaux.com/"], :root a[href^="https://m.do.co/c/"] > img, :root [href="https://masstortfinancing.com"] img, :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://albionsoftwares.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://convertmb.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://intenseaffiliates.com/redirect/"], :root a[href^="https://ads.ad4game.com/"], :root [id^="google_ads_iframe"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href^="https://affpa.top/"], :root a[href^="https://adnetwrk.com/"], :root a[href^="https://adjoincomprise.com/"], :root [href^="http://misslinkvocation.com/"], :root a[href^="https://adclick.g.doubleclick.net/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root [href^="https://r.kraken.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://misspkl.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://ad.kubiccomps.icu/"], :root div[data-adname], :root a[href^="https://thechleads.pro/"], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://iactrivago.ampxdirect.com/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="http://static.fleshlight.com/images/banners/"], :root a[href^="https://a.adtng.com/"], :root [data-m-ad-id], :root a[href^="https://sTartgAminG.net/tienda/"], :root a[href^="https://a-ads.com/"], :root a[href^="https://join.virtualtaboo.com/track/"], :root a[href^="https://StarTGAminG.net/tienda/"], :root a[href^="https://STaRTgamINg.net/tienda/"], :root a[href^="https://cpmspace.com/"], :root [href^="https://freecourseweb.com/"] > .sitefriend, :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root [href="https://ourgoldguy.com/contact/"] img, :root a[href^="https://brightadnetwork.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root a[href^="http://www.onwebcam.com/random?t_link="], :root a[href^="http://www.mrskin.com/tour"], :root a[href^="https://agacelebir.com/"], :root a[href^="https://spygasm.com/track?"], :root ins.adsbygoogle, :root a[href^="https://1startfiledownload1.com/"], :root a[href^="https://s.zlinkb.com/"], :root a[href^="http://d2.zedo.com/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="http://trk.globwo.online/"], :root a[href^="http://traffic.tc-clicks.com/"], :root a[href^="http://tour.mrskin.com/"], :root [href^="https://wct.link/"], :root [data-desktop-ad-id], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="http://m.hue2m.com/"], :root a[href^="https://funkydaters.com/"], :root [id^="ad_sky"], :root a[href^="http://https://www.get-express-vpn.com/offer/"], :root div[id^="google_dfp_"], :root a[href^="http://googleads.g.doubleclick.net/pcs/click"], :root [href^="http://go.cm-trk2.com/"], :root a[href^="http://click.payserve.com/"], :root a[href^="https://porngames.adult/?SID="], :root a[href^="https://landing1.brazzersnetwork.com"], :root #slashboxes > .deals-rail, :root [href^="http://globsads.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root a[href^="http://bc.vc/?r="], :root a[href^="https://mityneedn.com/"], :root [href^="http://homemoviestube.com/"], :root a[href^="http://ad.doubleclick.net/"], :root a[href^="//zunsoach.com/"], :root a[href^="//s.st1net.com/splash.php"], :root a[href^="//pubads.g.doubleclick.net/"], :root a[href^="https://femglobal.app/"], :root a[href^="//go.eabids.com/"], :root a[data-url^="http://paid.outbrain.com/network/redir?"] + .author, :root [href^="https://join.playboyplus.com/track/"], :root a[href^="//ardslediana.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root #kt_player > a[target="_blank"], :root a[href*=".cfm?fp="][href*="&maxads="], :root [data-ad-width], :root a[href^="http://bodelen.com/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root [href^="https://cpa.10kfreesilver.com/"], :root a[href^="https://a.bestcontentfood.top/"], :root a[href^="http://wct.link/"], :root [href^="https://goldforyourfuture.com/clk.trk"] img, :root [onclick^="location.href='http://www.reimageplus.com"], :root [id^="section-ad-banner"], :root a[href^="https://go.julrdr.com/"], :root .trc_rbox_div .syndicatedItemUB, :root [href^="https://zone.gotrackier.com/"], :root [href^="https://detachedbates.com/"], :root [href^="https://www.targetingpartner.com/"], :root a[href^="https://fourwhenstatistics.com/"], :root [href^="https://www.restoro.com/"], :root a[href^="https://yourperfectdating.life/"], :root a[href^="https://join.virtuallust3d.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://go.affiliatexe.com/"], :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root div[id^="ad-position-"], :root a[href^="http://affiliate.glbtracker.com/"], :root a[href^="https://leg.xyz/?track="], :root div[id^="crt-"][style], :root a[href^="http://adultgames.xxx/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://trk.softonixs.xyz/"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root a[onmousedown^="this.href='http://paid.outbrain.com/network/redir?"][target="_blank"], :root [href^="https://secure.bmtmicro.com/servlets/"], :root a[href^="https://losingoldfry.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [href^="https://routewebtk.com/"], :root a[href^="https://oackoubs.com/"], :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://go.cmtaffiliates.com/"], :root [data-name="adaptiveConstructorAd"], :root [href^="https://optimizedelite.com/"] > img, :root a[href^="https://awptjmp.com/"], :root a[href^="https://go.goasrv.com/"], :root [href^="http://mypillow.com/"] > img, :root a[href^="http://bongacams.com/track?"], :root a[href^="https://fleshlight.sjv.io/"], :root [data-ad-manager-id], :root a[href^="https://promo-bc.com/"], :root a[href^="https://clicks.pipaffiliates.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://t.grtyi.com/"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root [data-freestar-ad], :root a[href^="https://fc.lc/ref/"], :root .vid-present > .van_vid_carousel__padding, :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://staRTgaming.net/tienda/"], :root a[href^="https://STaRtgAmInG.net/tienda/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root [href^="https://go.xlrdr.com"], :root [href^="https://go.4rabettraff.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href^="https://glersakr.com/"], :root .trc_rbox_border_elm .syndicatedItem, :root div[id^="pa_sticky_ad_box_middle_"], :root a[href^="http://www.onclickmega.com/jump/next.php?"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://wittered-mainging.com/"], :root [href^="https://engine.gettopple.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root a[href^="https://k2s.cc/pr/"], :root [href^="https://affect3dnetwork.com/track/"], :root a[href^="https://camfapr.com/landing/click/"], :root [href="//sexcams.plus/"], :root a[href^="https://go.currency.com/"], :root .resultsList > div > div > div.G-5c[role="tab"][tabindex="0"], :root [href^="http://www.mypillow.com/"] > img, :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join3.bannedsextapes.com"], :root div[data-spotim-slot], :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href^="https://go.247traffic.com/"], :root [href^="https://join.girlsoutwest.com/"], :root [href^="http://trafficare.net/"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://adserver.adreactor.com/"], :root [href^="http://join.shemalesfromhell.com/"], :root [id^="ad_slider"], :root #searchResultsList > div > div[onclick$="'inline.ad'});"], :root [data-adbridg-ad-class], :root a[href^="http://www.adultdvdempire.com/?partner_id="][href*="&utm_"], :root [href^="http://join.shemale.xxx/"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root [href^="http://www.fleshlightgirls.com/"], :root [href^="http://join.trannies-fuck.com/"], :root .trc_rbox .syndicatedItem, :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://thefacux.com/"], :root a[href^="https://ads.planetwin365affiliate.com/redirect.aspx?"], :root [href^="http://join.rodneymoore.com/"], :root [href^="https://shrugartisticelder.com"], :root a[href^="https://staRTgamIng.net/tienda/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root [name^="google_ads_iframe"], :root [href="https://www.masstortfinancing.com/"] > img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://lnkxt.bannerator.com/"], :root [href="https://jdrucker.com/gold"] > img, :root [href^="https://v.investologic.co.uk/"], :root [href^="https://cipledecline.buzz/"], :root a[href^="https://go.xxxjmp.com"], :root #leader-companion > a[href], :root a[href^="https://jaxofuna.com/"], :root div[recirculation-ad-container], :root [href^="https://traffserve.com/"], :root [data-type="ad-vertical"], :root a[href^="https://u.expresstech.io/"], :root [href^="https://mypillow.com/"] > img, :root [href^="https://ad.admitad.com/"], :root [data-testid="ad_testID"], :root [href^="https://goldcometals.com/clk.trk"], :root a[href^="https://bodelen.com/"], :root [data-ad-name], :root a[href*=".g2afse.com/"], :root a[href^="https://go.hpyjmp.com"], :root [href^="https://mystore.com/"] > img, :root [data-mobile-ad-id], :root a[href^="http://tc.tradetracker.net/"] > img, :root a[href^="http://affiliates.thrixxx.com/"], :root div[id^="yandex_ad"], :root a[href^="https://pb-imc.com/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root [data-template-type="nativead"], :root [data-ez-name], :root a[data-widget-outbrain-redirect^="http://paid.outbrain.com/network/redir?"], :root [data-dynamic-ads], :root a[href^="http://go.xtbaffiliates.com/"], :root a[href^="https://consali.com/"], :root .grid > .container > #aside-promotion, :root DFP-AD, :root .trc_related_container div[data-item-syndicated="true"], :root a[href^="https://www.liquidfire.mobi/"], :root [href^="https://click2cvs.com/"], :root a[href^="https://webroutetrk.com/"], :root a[href^="https://mercurybest.com/"], :root a[href^="https://startgAming.net/tienda/"], :root [href^="https://safer-redirection.com"], :root [onclick*="content.ad/"], :root AMP-AD, :root a[href^="https://sTartGAMiNG.net/tienda/"], :root [data-ad-cls], :root [id^="ad-wrap-"], :root div[id^="taboola-stream-"], :root [href^="https://go.astutelinks.com/"], :root [class^="amp-ad-"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root AD-SLOT, :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root [href^="http://join.shemalepornstar.com/"], :root a[href^="https://go.xlviiirdr.com"], :root .trc_rbox_div .syndicatedItem, :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root a[href^="https://www.adskeeper.com"], :root [href^="https://totlnkcl.com/"], :root [data-ad-module], :root .plistaList > .itemLinkPET, :root [href^="https://gmxvmvptfm.com/"], :root [href^="https://trackfin.asia/"], :root .plistaList > .plista_widget_underArticle_item[data-type="pet"], :root a[href*="//lkstrck2.com/"], :root a[href^="https://bs.serving-sys.com"], :root [href^="http://residenceseeingstanding.com/"], :root [class^="div-gpt-ad"], :root a[href^="https://ggbetpromo.com/"], :root a[href^="http://partners.etoro.com/"], :root [data-advadstrackid], :root a[href^="https://refpazkjixes.top/"], :root #mgb-container > #mgb, :root [href^="https://www.cloudways.com/en/?id"], :root a[href^="https://tweakostensibleinstaller.com/"], :root a[href^="https://go.xlivrdr.com"], :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"] { display: none !important; }</style></head>
+
+<body>
+
+<!-- Yandex.RTB -->
+<script async="" src="./Музыкальный звонок на МК Attiny13_files/tag.js.download"></script><script async="" src="./Музыкальный звонок на МК Attiny13_files/analytics.js.download"></script><script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="./Музыкальный звонок на МК Attiny13_files/context.js(1).download" async="" style="display: none !important;"></script>
+
+<script type="text/javascript">
+window.google_analytics_uacct = "UA-18262495-2";
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('require', 'displayfeatures');
+  ga('create', 'UA-18262495-2', 'cxem.net');
+  ga('send', 'pageview');
+  </script>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym");
+
+   ym(54583708, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/54583708" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+	
+<script>var the_draft_name = "Музыкальный звонок на МК Attiny13";</script><link rel="stylesheet" href="./Музыкальный звонок на МК Attiny13_files/main.css">
+<script src="./Музыкальный звонок на МК Attiny13_files/jquery.min.js.download"></script>
+<script src="./Музыкальный звонок на МК Attiny13_files/jquery.sticky.js.download"></script>
+<script src="./Музыкальный звонок на МК Attiny13_files/main.js.download"></script>
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=yes">
+
+
+	<script>
+		var nE = 0;
+		var nEAddButton = true;
+		var nEID = 2702;
+		
+		var neDifficult = 2;
+		var nePCB = 1;
+		
+	</script>
+	<!--
+	<script src="https://cxem.net/js/needelparts.js"></script>
+	-->
+
+
+
+<!-- Начало НЕВИДИМЫХ СЧЕТЧИКОВ -->
+<div style="position:absolute;top:-100px;left:-100px;">
+<!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit;payalnik_all?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,80))+
+";"+Math.random();//--></script><!--/LiveInternet-->
+
+<!--begin of Ramblers Top100 code -->
+<img src="./Музыкальный звонок на МК Attiny13_files/top100.cnt" width="1" height="1" border="0" style="display: none !important;">
+<!--end of Top100 code-->
+
+<script type="text/javascript">!function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://vk.com/js/api/openapi.js?168",t.onload=function(){VK.Retargeting.Init("VK-RTRG-58939-3wAiA"),VK.Retargeting.Hit()},document.head.appendChild(t)}();</script><noscript><img src="https://vk.com/rtrg?p=VK-RTRG-58939-3wAiA" style="position:fixed; left:-999px;" alt=""/></noscript>
+
+</div>
+<!-- Конец НЕВИДИМЫХ СЧЕТЧИКОВ -->
+
+<div class="wrap">
+			<div id="antiAdBlock" style="padding: 5px; display: none; position: fixed; width: 100%; left: 0; top: 0; z-index: 151; font-size: 10px; text-align: center; color: #fff; background: #e90000;">
+			Обнаружен блокировщик рекламы. Сайт Паяльник существует только за счет рекламы, поэтому мы были бы Вам благодарны если Вы внесете сайт в список исключений. <a href="https://cxem.net/anti_ad_block.php" style="color: #fff;">Как это сделать?</a>
+			
+			<div style="position: absolute; top: 50%; right: 5px; margin-top: -7px; padding: 0 5px; background: #fff; color: #000; cursor: pointer;" onclick="closeAntiAdblock(this);">x</div>
+		</div>
+		
+<!-- Начало ШАПКИ -->
+	<div id="header">
+		<div class="left"></div>
+		<div class="right"></div>
+		<div class="schem"></div>
+		<a href="https://cxem.net/" class="logo"><img src="./Музыкальный звонок на МК Attiny13_files/logo.png" alt="Паяльник" border="0"></a>
+		<div class="round"></div>
+		<div class="hend"></div>
+		<div class="social_shapka">
+			<a href="https://vk.com/cxem_net_payalnik" rel="nofollow"><img src="./Музыкальный звонок на МК Attiny13_files/social_vk_shapka.png" border="0"></a>
+			<!-- <a href="https://www.youtube.com/channel/UCh9cB06Agv1Z8QTIkiGqotA?sub_confirmation=1" rel="nofollow"><img src="//cxem.net/images/social_yt_shapka.png" border="0"></a> -->
+			<!-- <a href="https://www.facebook.com/cxemnet" rel="nofollow"><img src="//cxem.net/images/social_fb_shapka.png" border="0"></a> -->
+		</div>
+		<div class="name"></div>
+		<div class="buttons">
+			<a href="https://translate.google.com/translate?hl=ru&amp;sl=ru&amp;tl=en&amp;u=//cxem.net/mc/mc114.php" class="lang" title="Translate to English"><img src="./Музыкальный звонок на МК Attiny13_files/lang-eng.png" alt="English" border="0"></a>
+			<form action="https://cxem.net/search.php" method="get" class="search">
+				<div class="submit"><button type="submit"><img src="./Музыкальный звонок на МК Attiny13_files/but-search.png" alt="OK"></button></div>
+				<div class="field">
+				<input type="hidden" name="searchid" value="841983">
+				<input type="hidden" name="web" value="0">
+				<input type="search" name="text"></div>
+			</form>
+			<div class="links">
+				<div class="rightCorner">&nbsp;</div>
+				<ul>
+					<li class="first last"><a href="https://cxem.net/circuit_send.php"><span><img src="./Музыкальный звонок на МК Attiny13_files/link-publish.png" alt="Прислать схему" border="0" title="Пришлите схему и получите гонорар"></span></a></li>
+				</ul>	
+				<div class="leftCorner">&nbsp;</div>
+			</div>
+		</div>
+		<div class="nav">
+			<ul class="menu">
+				<li><a href="https://cxem.net/chems.php" class="item"><b></b><span><div class="sprite_menu chems"></div></span><i></i></a>
+					<div class="subnav">
+						<div class="subnav-bg"></div>
+						<ul>
+							<li><a href="https://cxem.net/sound/sound.php"><em>&gt;</em>Аудио</a>
+								<div class="subnav">
+									<div class="subnav-bg"></div>
+									<ul>
+										<li><a href="https://cxem.net/sound/dinamics/dinamics.php">Динамики, сабвуферы </a></li>
+										<li><a href="https://cxem.net/sound/amps/amps.php">Усилители НЧ и ламповые УНЧ </a></li>
+										<li><a href="https://cxem.net/sound/tembrs/tembrs.php">Регуляторы тембра, эквалайзеры</a></li>
+										<li><a href="https://cxem.net/sound/soundpred/soundpred.php">Предварительные усилители</a></li>
+										<li><a href="https://cxem.net/sound/light/light.php">Светомузыкальные установки</a></li>
+										<li><a href="https://cxem.net/sound/music/music.php">Эффекты и примочки</a></li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="https://cxem.net/avto/avto.php"><em>&gt;</em>Авто-электроника</a>
+								<div class="subnav">
+									<div class="subnav-bg"></div>
+									<ul>
+										<li><a href="https://cxem.net/avto/electronics/4.php">Электроника для автомобиля</a></li>
+										<li><a href="https://cxem.net/avto/alarm/alarm.php">Охранные устройства и сигнализации</a></li>
+										<li><a href="https://cxem.net/avto/injectors/inject.php">Инжектор</a></li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="https://cxem.net/mc/mc114.php#"><em>&gt;</em>Радиоприем и передача</a>
+								<div class="subnav">
+									<div class="subnav-bg"></div>
+									<ul>
+										<li><a href="https://cxem.net/tuner/tuner.php">Радиоприемники</a></li>
+										<li><a href="https://cxem.net/cb/1.php">Си-Би техника связи</a></li>
+										<li><a href="https://cxem.net/rmodem/rmodem.php">Радиомодемы</a></li>
+										<li><a href="https://cxem.net/radiomic/radiomics.php">Радиомикрофоны и радиопередатчики</a></li>
+										<li><a href="https://cxem.net/indicator/indicator.php">Детекторы радиозакладок</a></li>							
+									</ul>
+								</div>
+							</li>
+							<li><a href="https://cxem.net/mc/mc114.php#"><em>&gt;</em>Автоматика в быту</a>
+								<div class="subnav">
+									<div class="subnav-bg"></div>
+									<ul>
+										<li><a href="https://cxem.net/house/1.php">Домашняя электроника</a></li>
+										<li><a href="https://cxem.net/greentech/greentech.php">Зеленые технологии</a></li>										
+										<li><a href="https://cxem.net/ik/2.php">Инфракрасная техника</a></li>
+										<li><a href="https://cxem.net/dozimetr/3.php">Осторожно радиация</a></li>
+										<li><a href="https://cxem.net/medic/medic.php">Медицинская техника</a></li>
+										<li><a href="https://cxem.net/elud/elud_r.php">Для рыболова</a></li>
+										<li><a href="https://cxem.net/metal/metal.php">Металлоискатели</a></li>
+										<li><a href="https://cxem.net/guard/3.php">Охранные устройства</a></li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="https://cxem.net/beginner/beginner.php">Начинающим</a></li>
+							<li><a href="https://cxem.net/telefon/2.php">Телефония и фрикинг</a></li>
+							<li><a href="https://cxem.net/comp/comp.php">Компьютерная электроника</a></li>
+							<li><a href="https://cxem.net/mc/mc.php">Микроконтроллеры</a></li>
+							<li><a href="https://cxem.net/arduino/arduino.php">Arduino</a></li>
+							<li><a href="https://cxem.net/uprav/uprav.php">Роботы и РУ-модели</a></li>
+							<li><a href="https://cxem.net/tv/tv.php">Телевизионная техника</a></li>
+							<li><a href="https://cxem.net/ntv/ntv.php">Спутниковое ТВ</a></li>
+							<li><a href="https://cxem.net/sotov/sotov.php">Сотовая связь</a></li>
+							<li><a href="https://cxem.net/izmer/izmer.php">Измерительная техника</a></li>
+							<li><a href="https://cxem.net/remont/remont.php">Ремонт бытовой техники</a></li>
+							<li><a href="https://cxem.net/pitanie/5.php">Источники питания и ЗУ</a></li>
+							<li><a href="https://cxem.net/electric/electric.php">Электрика</a></li>
+							<li><a href="https://cxem.net/promelectr/promelectr.php">Промышленная электроника</a></li>
+							<li><a href="https://cxem.net/tesla/tesla.php">Высокое напряжение и Тесла</a></li>
+							<li><a href="https://cxem.net/master/oglav.php">Мастерская радиолюбителя</a></li>
+							<li><a href="https://cxem.net/review/review.php">Обзоры устройств и приборов</a></li>
+							<li><a href="https://cxem.net/sprav/sprav.php">Справочные материалы</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="https://cxem.net/programs.php" class="item"><b></b><span><div class="sprite_menu programs"></div></span><i></i></a>
+					<div class="subnav">
+						<div class="subnav-bg"></div>
+						<ul>
+							<li><a href="https://cxem.net/calc/calc.php">Он-лайн калькуляторы</a></li>
+							<li><a href="https://cxem.net/software/soft_PCB.php">PCB</a></li>
+							<li><a href="https://cxem.net/software/soft_CAD.php">CAD</a></li>
+							<li><a href="https://cxem.net/software/soft_sketch.php">Черчение схем</a></li>
+							<li><a href="https://cxem.net/software/soft_audio.php">Аудио-софт</a></li>
+							<li><a href="https://cxem.net/software/soft_mcu.php">Микроконтроллеры</a></li>
+							<li><a href="https://cxem.net/software/soft_measurement.php">Измерения</a></li>
+							<li><a href="https://cxem.net/software/soft_generator.php">Генераторы</a></li>
+							<li><a href="https://cxem.net/software/soft_calc.php">Расчеты</a></li>
+							<li><a href="https://cxem.net/software/soft_android.php">Android</a></li>
+							<li><a href="https://cxem.net/software/soft_misc.php">Разное</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="https://cxem.net/video.php" class="item"><b></b><span><div class="sprite_menu videos"></div></span><i></i></a>
+				<div class="subnav">
+						<div class="subnav-bg"></div>
+						<ul>
+							<li><a href="https://cxem.net/video.php?category=1">Начинающим</a></li>
+							<li><a href="https://cxem.net/video.php?category=3">Микроконтроллеры</a></li>
+							<li><a href="https://cxem.net/video.php?category=4">Питание</a></li>
+							<li><a href="https://cxem.net/video.php?category=6">Аудио</a></li>
+							<li><a href="https://cxem.net/video.php?category=7">Высокое напряжение</a></li>
+							<li><a href="https://cxem.net/video.php?category=8">Обзоры</a></li>
+							<li><a href="https://cxem.net/video.php?category=5">Мастерская</a></li>																	
+						</ul>
+					</div>
+				</li>	
+				
+				<li><a href="https://forum.cxem.net/" class="item"><b></b><span><div class="sprite_menu forum"></div></span><i></i></a></li>
+
+				<li><a href="https://cxem.net/konkurs.php" class="item"><b></b><span><div class="sprite_menu konkurs"></div></span><i></i></a>
+				<div class="subnav">
+						<div class="subnav-bg"></div>
+						<ul>
+							<li><a href="https://cxem.net/top.php">Рейтинг статей</a></li>
+							<!-- <li><a href="//cxem.net/hardzone.php">ЖелеZona</a></li>		 -->					
+							<li><a href="https://cxem.net/konkurs.php">Конкурсы с призами</a></li>							
+						</ul>
+					</div>
+				</li>				
+				<li><a href="https://cxem.net/magazines/magazines.php" class="item"><b></b><span><div class="sprite_menu shops"></div></span><i></i></a>
+					<div class="subnav">
+						<div class="subnav-bg"></div>
+						<ul>
+							<li><a href="https://cxem.net/magazines/maps.php">Карта радио магазинов</a></li>
+							<li><a href="https://cxem.net/magazines/magazines.php">Обзоры интернет-магазинов</a></li>
+							<!-- <li><a href="//cxem.net/books.php">Литература</a></li> -->
+						</ul>
+					</div>
+				</li>
+				<!--
+				<li><a href="//cxem.net/konkurs2023.php" class="item"><b></b><span><div class="sprite_menu_konkurs2023"></div></span><i></i></a>	
+				<li><a href="https://www.youtube.com/channel/UCh9cB06Agv1Z8QTIkiGqotA?sub_confirmation=1" class="item" title="Крупнейший видеоканал по радиоэлектронике" rel="nofollow"><b></b><span><div class="sprite_menu_payalnikTV"></div></span><i></i></a></li>-->
+						</ul>
+            <ul class="enter">
+            	            		<li class="gologin myname" title="Войти в свой профиль" onclick="location.href = &#39;https://cxem.net/cms/login/&#39;">
+                		Войти
+                	</li>
+					
+                           </ul>
+		</div>
+	</div>
+<!-- Конец ШАПКИ -->
+
+<div style="text-align: center"><div class="rek_plashka"><div style="text-align: center;"><a href="https://tmelectronics.ru/?erid=4CQwVszL76wmsDyni52"><img src="./Музыкальный звонок на МК Attiny13_files/cxem_top_1704799091.gif"></a></div><span class="plashka_tooltip" data-microtip-position="bottom-left" role="tooltip" data-microtip-size="medium" aria-label="ООО ТМ ЭЛЕКТРОНИКС, ИНН: 7806548420, info@tmelectronics.ru, +7(812)4094849">Реклама ⓘ</span></div></div><div align="right" style="padding-right:5px; opacity: 0.7"><a href="https://cxem.net/" class="chems">Главная</a> <img src="./Музыкальный звонок на МК Attiny13_files/arrow.gif" alt="»"> <a href="https://cxem.net/mc/mc.php" class="chems">Микроконтроллеры</a></div>
+
+<div class="cont_right">
+	
+<!-- div style="text-align:center; padding: 10px 0px" ><a href="https://s.click.aliexpress.com/e/_DEGdpov"><img src="//cxem.net/images/sunfounder.gif" alt="SunFounder"></a></div> -->
+	
+	<!-- start widget -->
+	<div class="concurs-top"><div class="concurs-title" title="Призовой фонд на апрель 2024 г.">Призовой фонд<br>на апрель 2024 г.</div><div class="concurs-content"><div class="concurs-place"><div class="concurs-prize">1. 100 руб.</div><div class="concurs-sponsor">От пользователей</div></div></div><div class="concurs-link"><a href="http://cxem.net/rating_cash.php" class="button button-black">присоединиться</a></div></div>	<!-- end widget -->
+	
+	<h4>Похожие статьи:</h4><ul><li><a href="https://cxem.net/house/1-30.php">Музыкальный звонок на ИМС УМС8</a></li><li><a href="https://cxem.net/mc/mc295.php">Музыкальный звонок с тайной кнопкой</a></li><li><a href="https://cxem.net/house/1-35.php">Электромузыкальный звонок на К555ИД3</a></li></ul>	<br>
+
+
+	<object data="./Музыкальный звонок на МК Attiny13_files/180x450_Right.html" style="height:450px; width:100%"></object>
+
+	<!--
+	<script src="https://cxem.net/js/reports.js"></script>
+	<p align="center" style="padding-top: 15px; cursor: pointer;"><img src="/images/error_report.png" title="Нашли ошибку? Нажмите ctrl+enter для уведомления" onclick="Report.show(3);"></p>
+	-->
+	
+	
+</div>
+
+<div class="cont_left" style="position: static; top: auto; width: 215px; margin-top: 20px;">
+	<div class="rek_plashka" id="cxem_left" style="left: 12px;">
+	<div align="center"><a href="https://www.pcbonline.com/?erid=4CQwVszL76wmsDynNfX"><img src="./Музыкальный звонок на МК Attiny13_files/cxem_left_1693495697.gif"></a></div><span class="plashka_tooltip" data-microtip-position="bottom-left" role="tooltip" data-microtip-size="medium" aria-label="Chevalier House, 45-51 Chatham Road South, Tsim Sha Tsui, Hong Kong, +08627398155  ">Реклама ⓘ</span>	</div>
+
+	<p align="center" style="padding-top: 10px"><a href="https://cxem.net/rating_cash.php"><img src="./Музыкальный звонок на МК Attiny13_files/donate.png" title="Поддержите авторов статей сайта Паяльник!" border="0"></a></p>
+
+	<div align="center" style="padding-top: 15px" id="yds-panel2">
+		<div id="show_leftpanel_books" style="display:none">
+    	<div style="text-align: center; margin-bottom:23px">
+	<div class="cbooks-image">
+		<img src="./Музыкальный звонок на МК Attiny13_files/107_s.jpg" title="Конструктор - темброблок на LM1036" alt="Конструктор - темброблок на LM1036">
+		<div class="bottom_hint">Конструктор - темброблок на LM1036</div>
+	</div>
+	<div style="padding-top:7px"><a href="http://alipromo.com/redirect/cpa/o/1e49f32c421aaf087767162723ea6eb9" rel="nofollow" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;aliexpress&#39;, &#39;click-leftpanel&#39;, &#39;Конструктор - темброблок на LM1036&#39;);" style="background: #2f91e1; background: linear-gradient(top, #2f91e1, #175aaa);border-radius: 15px; border: none; padding: 5px 10px; color: #fff; text-decoration: none;">Купить 12 $</a></div>
+</div><div style="text-align: center; margin-bottom:23px">
+	<div class="cbooks-image">
+		<img src="./Музыкальный звонок на МК Attiny13_files/119_s.jpg" title="Квадрокоптер Syma X11" alt="Квадрокоптер Syma X11">
+		<div class="bottom_hint">Квадрокоптер Syma X11</div>
+	</div>
+	<div style="padding-top:7px"><a href="http://alipromo.com/redirect/cpa/o/c496a80a98196d2ff38dc48039879c52" rel="nofollow" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;aliexpress&#39;, &#39;click-leftpanel&#39;, &#39;Квадрокоптер Syma X11&#39;);" style="background: #2f91e1; background: linear-gradient(top, #2f91e1, #175aaa);border-radius: 15px; border: none; padding: 5px 10px; color: #fff; text-decoration: none;">Купить 30 $</a></div>
+</div><div style="text-align: center; margin-bottom:23px">
+	<div class="cbooks-image">
+		<img src="./Музыкальный звонок на МК Attiny13_files/104_s.jpg" title="Набор для сборки - LED лампа" alt="Набор для сборки - LED лампа">
+		<div class="bottom_hint">Набор для сборки - LED лампа</div>
+	</div>
+	<div style="padding-top:7px"><a href="http://alipromo.com/redirect/cpa/o/06e7b9eccb259b2317bca9aa0e8007a6" rel="nofollow" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;aliexpress&#39;, &#39;click-leftpanel&#39;, &#39;Набор для сборки - LED лампа&#39;);" style="background: #2f91e1; background: linear-gradient(top, #2f91e1, #175aaa);border-radius: 15px; border: none; padding: 5px 10px; color: #fff; text-decoration: none;">Купить 2 $</a></div>
+</div>  	</div>	
+	</div>
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yds-panel2',
+    blockId: 'R-A-126079-2'
+  })
+})</script>
+
+
+
+
+</div>
+	
+<div class="cont">
+
+	<div id="product-anti-ad"></div>
+
+<script type="text/javascript">	
+    $(document).ready(function() {
+		$('.subscribe').hide();
+		var interval;
+
+		$('ul.tags li').hover(function(e) {
+			var popup = $(this).find('div');
+			var tag = $(this).find('a').attr('id');
+			interval = setTimeout(function() {
+				$.getJSON(URL + '/index.php?q=tagsubscribe/', 'tag=' + tag, function(json) {
+					if (json.success) {
+						popup.css('left', 0);
+						popup.html(json.message);
+						popup.show();
+					}
+				});
+			}, 600);
+		},
+		function() {
+			var popup1 = $(this).find('div');
+			popup1.html('');
+			popup1.hide();
+			clearInterval(interval);
+		});
+
+
+		//Подписать на тег
+		$('a[rel="subscribe"]').live('click', function() {
+			var a = $(this);
+			var tag = a.attr('id');
+			var user_id = '0';
+			if (user_id == 0) {
+				alert('Необходима регистрация');
+				return false;
+			}
+			$.getJSON(URL + '/index.php?q=tagsubscribe/', 'tag=' + tag + '&action=subscribe', function(json) {
+				if (json.success) {
+					a.attr('rel', 'unsubscribe');
+					a.text('отписаться');
+					a.unwrap('<u>');
+					a.wrap('<i>');
+				} else {
+					alert(json.message);
+				}
+			});
+			return false;
+		});
+
+		//Отписаться на тег
+		$('a[rel="unsubscribe"]').live('click', function() {
+			var a = $(this);
+			var tag = a.attr('id');
+			var user_id = '0';
+			if (user_id == 0) {
+				alert('Необходима регистрация');
+				return false;
+			}
+			$.getJSON(URL + '/index.php?q=tagsubscribe/','tag=' + tag + '&action=unsubscribe', function(json) {
+				if (json.success) {
+					a.attr('rel', 'subscribe');
+					a.text('подписаться');
+					a.unwrap('<i>');
+					a.wrap('<u>');
+				} else {
+					alert(json.message);
+				}
+			});
+			return false;
+		});
+
+	});
+</script><script>
+
+function loadJSCSS(src, type, callback) {
+	var link;
+	if (type == 'js') {
+		link = document.createElement('script');
+		link.setAttribute('src', src);
+		link.setAttribute('type', 'text/javascript');
+		if (callback) {
+			link.onload = callback;
+		}
+	} else if (type == 'css') {
+		link = document.createElement('link');
+		link.setAttribute('rel', 'stylesheet');
+		link.setAttribute('href', src);
+		link.setAttribute('type', 'text/css');
+	}
+	
+	if (typeof link != 'undefined') document.head.insertBefore(link, document.head.firstChild);
+}
+
+	$(document).ready(function() {
+		var f = '.main_content';
+		
+		if ($(f).length == 0) f = '#longright';
+		
+		var lng = new Array();
+		if ($(f).length == 1) {
+			$(f).find('pre').each(function() {
+				var l = this.className.split(':');
+				var lName = this.className.split(':')[l.length - 1].replace(';', '').trim();
+			
+				if (lng.length == 0) {
+					lng.push(lName);
+				} else {
+					for (var i in lng) {
+						if (lng[i] == lName) continue;
+						lng.push(lName);
+					}
+				}				
+			});
+		}
+		
+		if (lng.length > 0) {
+			
+			loadJSCSS(location.protocol + '//' + location.host + '/cms/views/js/syntax/styles/shCoreEclipse.css', 'css');
+			loadJSCSS(location.protocol + '//' + location.host + '/cms/views/js/syntax/scripts/shCore.js', 'js', function() {
+				for (var i in lng) {
+					var lang = lng[i].trim();		
+					if (lang === '') continue;
+				
+					if (lang == 'js') lang = 'JScript';
+					else if (lang == 'csharp') lang = 'CSharp';
+					else lang = lang[0].toUpperCase() + lang.substring(1);
+
+					var file = location.protocol + '//' + location.host + '/cms/views/js/syntax/scripts/shBrush' + lang + '.js';
+					loadJSCSS(file, 'js');
+				}
+				SyntaxHighlighter.all();
+			});
+		
+		}
+	
+	});
+	
+</script>
+
+
+
+
+
+<script>
+
+	function scrollIntoViewIfOutOfView(el) {
+		var topOfPage = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+		var heightOfPage = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+		var elY = 0;
+		var elH = 0;
+		if (document.layers) { // NS4
+			elY = el.y;
+			elH = el.height;
+		}
+		else {
+			for(var p=el; p&&p.tagName!='BODY'; p=p.offsetParent){
+				elY += p.offsetTop;
+			}
+			elH = el.offsetHeight;
+		}
+		if ((topOfPage + heightOfPage) < (elY + elH)) {
+			el.scrollIntoView(false);
+		}
+		else if (elY < topOfPage) {
+			el.scrollIntoView(true);
+		}
+	}
+
+
+	//Show information about radioelement
+	function printDataOfElement(elem, id, s_id, r_id) {
+		$(elem).parent().css('position', 'relative');
+		$('.popup-element').remove();
+
+		var popoup = document.createElement('div');
+		popoup.className = 'popup-element';
+		$(popoup).html('Пожалуйста, подождите...');
+
+		$(elem).parent().append(popoup);
+		$(popoup).css('top', '-' + ($(popoup).height() + 16) + 'px');
+
+		var data = 'dataofelement=1';
+		if (id) {
+			data += '&id=' + id;
+		} else {
+			data += '&s_id=' + s_id + '&r_id=' + r_id;
+		}
+
+		$.ajax({
+			url: '/cms/index.php?q=partinfo/',
+			data: data,
+			type: 'post',
+			dataType: 'json',
+			success: function(json) {
+				if (json.success) {
+					$(popoup).html(json.html.main + '<div id="alldata" class="alldata">Показать дополнительные параметры</div>');
+					$('#alldata').live('click', function() {
+						$(popoup).html(json.html.main + json.html.additional);
+						$(popoup).css('top', '-' + ($(popoup).height() + 16) + 'px');
+						scrollIntoViewIfOutOfView(popoup);
+					});
+
+				} else {
+					$(popoup).html(json.message);
+				}
+				$(popoup).css('top', '-' + ($(popoup).height() + 16) + 'px');
+				scrollIntoViewIfOutOfView(popoup);
+			}
+		});
+	}
+
+
+    function printResistor(elem, value) {
+
+        $(elem).parent().css('position', 'relative');
+        $('.popup-element').remove();
+
+        var popoup = document.createElement('div');
+        popoup.className = 'popup-element';
+        $(popoup).html('Пожалуйста, подождите...');
+
+        $(elem).parent().append(popoup);
+        $(popoup).css('top', '-' + ($(popoup).height() + 16) + 'px');
+
+        var data = 'value=' + encodeURIComponent(value);
+
+        $.ajax({
+            url: '/cms/index.php?q=resistorcolor/',
+            data: data,
+            type: 'post',
+            dataType: 'json',
+            success: function(json) {
+
+                if (json.success) {
+                      $(popoup).html(json.message);
+                } else {
+                    $(popoup).html(json.message);
+                }
+                $(popoup).find('img').load(function() {
+                    $(popoup).css('top', '-' + ($(popoup).height() + 16) + 'px');
+                });
+                $(popoup).css('top', '-' + ($(popoup).height() + 16) + 'px');
+                scrollIntoViewIfOutOfView(popoup);
+            }
+        });
+    }
+
+	$(document).ready(function() {
+		$('.popup-close').live('click', function() {
+			$('.popup-element').remove();
+		});
+	});
+</script>
+
+<script type="text/javascript" src="./Музыкальный звонок на МК Attiny13_files/arating.js.download"></script>
+<script src="./Музыкальный звонок на МК Attiny13_files/jquery.tooltip.js.download"></script>
+<link type="text/css" rel="stylesheet" href="./Музыкальный звонок на МК Attiny13_files/jquery.tooltip.css">
+
+
+
+<script>
+
+	var jquerysetting = {
+		allowAdd: false,
+		allowEdit: false,
+		allowDelete: false
+	}
+	
+function smallerImage(field, notes) {
+	window.onload = function() {
+
+		if (notes) {
+			$(field + ' img').jQueryNotes(jquerysetting);
+		}
+
+		var mfield = field.substring(1);
+		var images = document.getElementById(mfield);
+		if (!images) images = document.getElementsByClassName(mfield)[0];
+
+		images = images.getElementsByTagName('img');
+
+		for (var i = 0; i < images.length; i++) {
+			var img = images[i];
+			img.removeAttribute('style');
+			var width = img.naturalWidth;
+			
+			if (width == 0) {
+				img.onload = function(e) {
+					width = this.width;
+				}
+			}
+
+			if (width > 700) {
+
+				var src = img.src;
+				img.removeAttribute('style');
+				img.className = 'small';
+
+				img.title = 'Нажмите для увеличения';
+
+				var wrapper = document.createElement('a');
+				wrapper.href = src;
+				wrapper.rel = 'lightbox';
+				wrapper.appendChild(img.cloneNode(true));
+				img.parentNode.replaceChild(wrapper, img);
+			}
+            else if (img.src.indexOf('/_thumbs/') > -1) {
+
+
+                var wrapper = document.createElement('a');
+                wrapper.href = img.src.replace('/_thumbs/', '/images/');
+                img.title = 'Нажмите для увеличения';
+                wrapper.rel = 'lightbox';
+				wrapper.target = '_blank';
+                wrapper.appendChild(img.cloneNode(true));
+                img.parentNode.replaceChild(wrapper, img);
+
+            }
+		}
+
+
+		
+
+			
+	}
+		
+}
+		
+	
+	
+	
+		
+
+</script>
+
+ <script type="text/javascript">
+
+	$(document).ready(function() {
+		smallerImage('.main_content', false);
+	});
+
+	
+</script>
+
+
+
+<h1 align="center">Музыкальный звонок на МК Attiny13</h1>
+
+<div id="yandex_rtb_R-A-126079-6"></div>
+<script type="text/javascript">
+    (function(w, d, n, s, t) {
+        w[n] = w[n] || [];
+        w[n].push(function() {
+            Ya.Context.AdvManager.render({
+                blockId: "R-A-126079-6",
+                renderTo: "yandex_rtb_R-A-126079-6",
+                async: true
+            });
+        });
+        t = d.getElementsByTagName("script")[0];
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "//an.yandex.ru/system/context.js";
+        s.async = true;
+        t.parentNode.insertBefore(s, t);
+    })(this, this.document, "yandexContextAsyncCallbacks");
+</script>
+<div class="main_content">
+	<p>Сломался у меня в квартире звонок. Покупать новый звонок особо не хотелось. Поэтому я решил сделать свой – музыкальный звонок. Для звонка я применил восьми битный AVR микроконтроллер Attiny13 и несколько дискретных компонентов.</p>
+
+<p>Для сборки звонка понадобится:</p>
+
+<ol><li>Микроконтроллер Attiny13 (с любыми индексами) 1шт.</li>
+	<li>Резистор 4.7 кОм 2шт.</li>
+	<li>Резистор 100 Ом 1шт.</li>
+	<li>Транзистор КТ315 (с любыми индексами) или аналогичный 1шт.</li>
+	<li>Панелька DIP8 1шт.</li>
+	<li>Пьезоизлучатель или динамик 1шт.</li>
+	<li>Тактовая кнопка 1шт.</li>
+</ol><p><img alt="Компоненты для звонка" src="./Музыкальный звонок на МК Attiny13_files/mc114-1.jpg"></p>
+
+<p>Для питания звонка необходимо напряжение от 3 до 5 вольт.<br>
+Транзистор необходим для усиления звука.</p>
+
+<p>Всё время звонок находится в спящем режиме и потребляет очень низкий ток. По нажатию кнопки происходит прерывание на 6 (PB1) ножке микроконтроллера, звонок "просыпается" и играет мелодию, после чего он снова засыпает.</p>
+
+<p>Для музыкального звонка я написал (в среде <a href="https://cxem.net/software/bascom-avr.php">BASCOM-AVR</a>) две прошивки:</p>
+
+<ol><li>M1T13BELL.HEX – прошивка с мелодией 1</li>
+	<li>M2T13BELL.HEX – прошивка с мелодией 2</li>
+</ol><p>Принципиальная схема звонка:</p>
+
+<p><img alt="Принципиальная схема звонка" src="./Музыкальный звонок на МК Attiny13_files/mc114-2.png"></p>
+
+<p>Звонок можно собирать как на печатной плате, так и на макетной. Изначально я собрал звонок на макетной плате (для тестов), а позже сделал печатную плату (проект печатной платы Sprint Layout 4.0 есть в архиве с файлами).&nbsp;Также есть проект звонка в <a href="https://cxem.net/software/proteus.php">Proteus</a> (в архиве с файлами):</p>
+
+<p><img alt="Звонок в Proteus" src="./Музыкальный звонок на МК Attiny13_files/mc114-3.png"></p>
+
+<p>Тестовая версия звонка (на макетной плате):</p>
+
+<p><img alt="Звонок на макетной плате" src="./Музыкальный звонок на МК Attiny13_files/mc114-4.jpg"></p>
+
+<p>Позже, я сделал звонок на плате:</p>
+
+<p><img alt="Звонок на печатной плате" src="./Музыкальный звонок на МК Attiny13_files/mc114-5.jpg"></p>
+
+<p>Корпус для звонка я решил сделать из древесины, взял брусок 50мм на 35мм и вырезал в нём углубление. В качестве крышки для корпуса я применил небольшой кусочек фанеры. Далее в корпус я поместил плату звонка и разъем 3,5 "мама".</p>
+
+<p><img alt="Звонок в корпусе" src="./Музыкальный звонок на МК Attiny13_files/mc114-6.jpg"></p>
+
+<p>Установка фьюз битов в <a href="https://cxem.net/software/ponyprog2000.php">PonyProg2000</a>:</p>
+
+<p><img alt="Фьюз биты" src="./Музыкальный звонок на МК Attiny13_files/mc114-7.png"></p>
+
+<p>Ниже вы можете скачать прошивку, проект в Proteus, исходник, печатную плату</p><div class="article-video">
+									<object width="420" height="315">
+										<param name="allowfullscreen" value="true">
+										<param name="allowscriptaccess" value="always">
+										<param name="movie" value="//www.youtube.com/v/5xxvmSS0_tQ?version=3&amp;hl=ru_RU&amp;rel=0">
+										<embed wmode="opaque" src="//www.youtube.com/v/5xxvmSS0_tQ?version=3&amp;hl=ru_RU&amp;rel=0" type="application/x-shockwave-flash" width="420" height="315" allowscriptaccess="always" allowfullscreen="true">
+									</object>
+								</div><div class="article-video">
+									<object width="420" height="315">
+										<param name="allowfullscreen" value="true">
+										<param name="allowscriptaccess" value="always">
+										<param name="movie" value="//www.youtube.com/v/uDk92klmPGc?version=3&amp;hl=ru_RU&amp;rel=0">
+										<embed wmode="opaque" src="//www.youtube.com/v/uDk92klmPGc?version=3&amp;hl=ru_RU&amp;rel=0" type="application/x-shockwave-flash" width="420" height="315" allowscriptaccess="always" allowfullscreen="true">
+									</object>
+								</div><div class="article-video">
+									<object width="420" height="315">
+										<param name="allowfullscreen" value="true">
+										<param name="allowscriptaccess" value="always">
+										<param name="movie" value="//www.youtube.com/v/OJinzITfqmI?version=3&amp;hl=ru_RU&amp;rel=0">
+										<embed wmode="opaque" src="//www.youtube.com/v/OJinzITfqmI?version=3&amp;hl=ru_RU&amp;rel=0" type="application/x-shockwave-flash" width="420" height="315" allowscriptaccess="always" allowfullscreen="true">
+									</object>
+								</div><h4>Список радиоэлементов</h4><table class="table_lm" id="mydetails"><thead><tr><th width="120">Обозначение</th>
+					<th>Тип</th>
+					<th>Номинал</th>
+					<th width="80">Количество</th>
+					<th>Примечание</th><th style="text-align: center;" class="details-option">Магазин</th><th width="120" style="text-align: center;" nowrap="" class="details-option">Мой блокнот</th></tr>
+						</thead>
+						<tbody><tr><th scope="row" class="text-center">U1</th>
+								<td>МК AVR 8-бит</td><td><div style="position: relative;"><span class="elementdata" title="Нажмите для просмотра параметров элемента" onclick="printDataOfElement(this, false, 19, 8);">ATtiny13</span></div></td><td class="text-center">1</td>
+								<td></td><td class="details-option shop-button" nowrap=""><a href="https://cxem.net/elshop.php?id=20770" class="edit buy_in_shop" target="_blank">Поиск в магазине Отрон</a></td><td class="details-option shop-button" nowrap=""><span class="eluserlist"><span class="button button-ok addtomylist">В блокнот</span></span></td></tr><tr><th scope="row" class="text-center">VT1</th>
+								<td>Биполярный транзистор</td><td><div style="position: relative;"><span class="elementdata" title="Нажмите для просмотра параметров элемента" onclick="printDataOfElement(this, false, 84, 1);">КТ315А</span></div></td><td class="text-center">1</td>
+								<td></td><td class="details-option shop-button" nowrap=""><a href="https://cxem.net/elshop.php?id=20771" class="edit buy_in_shop" target="_blank">Поиск в магазине Отрон</a></td><td class="details-option shop-button" nowrap=""><span class="eluserlist"><span class="button button-ok addtomylist">В блокнот</span></span></td></tr><tr><th scope="row" class="text-center">R1, R2</th>
+								<td>Резистор</td><td><div style="position: relative;"><span class="elementdata" title="Нажмите для просмотра цветовой маркировки резистора" onclick="printResistor(this, &#39;4.7 кОм&#39;)">4.7 кОм</span></div></td><td class="text-center">2</td>
+								<td></td><td class="details-option shop-button" nowrap=""><a href="https://cxem.net/elshop.php?id=20772" class="edit buy_in_shop" target="_blank">Поиск в магазине Отрон</a></td><td class="details-option shop-button" nowrap=""><span class="eluserlist"><span class="button button-ok addtomylist">В блокнот</span></span></td></tr><tr><th scope="row" class="text-center">R3</th>
+								<td>Резистор</td><td><div style="position: relative;"><span class="elementdata" title="Нажмите для просмотра цветовой маркировки резистора" onclick="printResistor(this, &#39;100 Ом&#39;)">100 Ом</span></div></td><td class="text-center">1</td>
+								<td></td><td class="details-option shop-button" nowrap=""><a href="https://cxem.net/elshop.php?id=20773" class="edit buy_in_shop" target="_blank">Поиск в магазине Отрон</a></td><td class="details-option shop-button" nowrap=""><span class="eluserlist"><span class="button button-ok addtomylist">В блокнот</span></span></td></tr><tr><th scope="row" class="text-center">Bat1</th>
+								<td>Источник питания</td><td>5В</td><td class="text-center">1</td>
+								<td></td><td class="details-option shop-button" nowrap=""><a href="https://cxem.net/elshop.php?id=20774" class="edit buy_in_shop" target="_blank">Поиск в магазине Отрон</a></td><td class="details-option shop-button" nowrap=""><span class="eluserlist"><span class="button button-ok addtomylist">В блокнот</span></span></td></tr><tr class="eluserlist-all"><td colspan="6"></td><td style="text-align: center; padding: 3px 0;"><span class="button button-ok addalltomylist" style="display: inline-block; font-size: 11px;">Добавить все</span></td></tr></tbody></table><p><sup><a href="https://cxem.net/mc/plPDF/mc114.pdf">Скачать список элементов (PDF)</a></sup></p><div style="font-weight: bold;"><h4>Прикрепленные файлы:</h4><ul><li><a href="https://cxem.net/mc/files/mc114_t13bell.rar">t13bell.rar</a> (38 Кб)</li></ul></div><h4 class="tagh3">Теги:</h4><ul class="tags"><li>
+									<a class="ourtag" href="https://cxem.net/tags/BASCOM-AVR/" id="BASCOM-AVR">BASCOM-AVR</a>
+									<div class="subscribe" style="display: none;"></div>
+								</li><li>
+									<a class="ourtag" href="https://cxem.net/tags/Sprint-Layout/" id="Sprint-Layout">Sprint-Layout</a>
+									<div class="subscribe" style="display: none;"></div>
+								</li><li>
+									<a class="ourtag" href="https://cxem.net/tags/Proteus/" id="Proteus">Proteus</a>
+									<div class="subscribe" style="display: none;"></div>
+								</li><li>
+									<a class="ourtag" href="https://cxem.net/tags/AVR/" id="AVR">AVR</a>
+									<div class="subscribe" style="display: none;"></div>
+								</li><li>
+									<a class="ourtag" href="https://cxem.net/tags/%25D0%259C%25D0%25B8%25D0%25BA%25D1%2580%25D0%25BE%25D0%25BA%25D0%25BE%25D0%25BD%25D1%2582%25D1%2580%25D0%25BE%25D0%25BB%25D0%25BB%25D0%25B5%25D1%2580/" id="%25D0%259C%25D0%25B8%25D0%25BA%25D1%2580%25D0%25BE%25D0%25BA%25D0%25BE%25D0%25BD%25D1%2582%25D1%2580%25D0%25BE%25D0%25BB%25D0%25BB%25D0%25B5%25D1%2580">Микроконтроллер</a>
+									<div class="subscribe" style="display: none;"></div>
+								</li></ul>
+</div>
+
+
+
+<div class="articlebottom">
+	<div style="float: left;">
+		<img src="./Музыкальный звонок на МК Attiny13_files/mode_author.png" title="Автор статьи"> <strong><a href="https://cxem.net/profile/3" rel="author">alex98y</a></strong>
+		<img src="./Музыкальный звонок на МК Attiny13_files/mode_public.png" title="Дата публикации статьи"> Опубликована: <time pubdate="" datetime="2012-03-01">01.03.2012</time>
+		
+		<img src="./Музыкальный звонок на МК Attiny13_files/mode_comment.png" title="Количество комментариев"> <span id="count_comments">8</span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/mode_favorite.png" id="favArticle" title="Подписаться на статью"> <span class="subscribedCount">1</span>	</div>
+
+	<div style="float: right; margin-right: 15px;">
+					<span class="getpdf"><a href="http://cxem.net/getPDF.php?id=2702" title="Получить PDF-версию статьи"><img src="./Музыкальный звонок на МК Attiny13_files/getpdf.png" srcset="/images/icons/getpdf.png 1x, /images/icons/getpdf_2x.png 2x"></a></span>
+				<span id="donate"><img src="./Музыкальный звонок на МК Attiny13_files/mode_donate.png" title="Вознаградить автора статьи"> Вознаградить</span>
+
+		
+		<a id="buildadd" href="https://cxem.net/mc/mc114.php#" title="Написать про результат своей сборки">Я собрал</a>
+				<span id="buildcount" title="Количество сборок других пользователей">0</span>
+				
+		
+
+		<span title="Средний балл статьи: 0" id="arating" style="height: 15.181818181818px; background-position: 0 -151.81818181818px;"></span><span style="color: rgba(255, 255, 255, .5); padding: 0 10px 0 15px;" title="Количество оценивших статью: 0">0</span><div class="arating" style="display: none;">
+									<div class="close">x</div><h3 style="margin: 0; text-align: center;">Оценить статью</h3><ul class="rating"><li><span class="criterion">Техническая грамотность</span><div class="votes" data-id="1" data-weight="1"><ul><li class="vote" data-value="1"></li><li class="vote" data-value="2"></li><li class="vote" data-value="3"></li><li class="vote" data-value="4"></li><li class="vote" data-value="5"></li></ul></div></li><li><span class="criterion">Актуальность материала</span><div class="votes" data-id="2" data-weight="0.8"><ul><li class="vote" data-value="1"></li><li class="vote" data-value="2"></li><li class="vote" data-value="3"></li><li class="vote" data-value="4"></li><li class="vote" data-value="5"></li></ul></div></li><li><span class="criterion">Изложение материала</span><div class="votes" data-id="3" data-weight="0.6"><ul><li class="vote" data-value="1"></li><li class="vote" data-value="2"></li><li class="vote" data-value="3"></li><li class="vote" data-value="4"></li><li class="vote" data-value="5"></li></ul></div></li><li><span class="criterion">Полезность устройства	</span><div class="votes" data-id="4" data-weight="0.4"><ul><li class="vote" data-value="1"></li><li class="vote" data-value="2"></li><li class="vote" data-value="3"></li><li class="vote" data-value="4"></li><li class="vote" data-value="5"></li></ul></div></li><li><span class="criterion">Повторяемость устройства</span><div class="votes" data-id="5" data-weight="0.3"><ul><li class="vote" data-value="1"></li><li class="vote" data-value="2"></li><li class="vote" data-value="3"></li><li class="vote" data-value="4"></li><li class="vote" data-value="5"></li></ul></div></li><li><span class="criterion">Орфография</span><div class="votes" data-id="6" data-weight="0.2"><ul><li class="vote" data-value="1"></li><li class="vote" data-value="2"></li><li class="vote" data-value="3"></li><li class="vote" data-value="4"></li><li class="vote" data-value="5"></li></ul></div></li></ul><div class="result-rating">0</div><div class="additional" style="clear: both;"><div style="text-align: center; padding-top: 5px;"><textarea id="addittext" style="width: 290px; font-size: 11px; resize: vertical;" maxlength="255" rows="3" placeholder="Напишите пару слов о недостатках или достоинствах статьи. В дальнейшем Вы не сможете изменить свою оценку!"></textarea></div><div id="buttons" style="text-align: center; margin: 0;">
+										<button type="button" class="button-ok" id="dorating" style="font-size: 11px;">Оценить</button>
+										<button type="button" class="button-ok" id="resetrating" style="font-size: 11px;">Сбросить</button>
+									</div></div><p style="margin: 0; line-height: normal; color: #bbb;">
+									<span>Средний балл статьи: 0</span>
+									<span style="float: right;">Проголосовало: 0 чел.</span>
+								</p></div>	</div>
+</div>
+
+
+<div id="product_anti_ad_bottom"></div>
+
+
+
+
+<link rel="stylesheet" href="./Музыкальный звонок на МК Attiny13_files/comments.css">
+
+<div align="left" style="margin: 25px 0;" id="ydi_cxem_bottom1"></div>
+
+
+<div style="margin: 20px 0 25px 0;">
+	<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+	<a class="addthis_button_vk"></a>
+	<a class="addthis_button_odnoklassniki_ru"></a>
+	<a class="addthis_button_mymailru"></a>
+	<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+	</div>
+	<script type="text/javascript" src="./Музыкальный звонок на МК Attiny13_files/addthis_widget.js.download" style="display: none !important;"></script>
+</div>
+
+</div>
+
+<div align="center" style="padding: 10px; color: #666666; font-size: 12px">
+	
+<!-- SAPE RTB JS -->
+<script async="async" src="./Музыкальный звонок на МК Attiny13_files/32852.js.download" type="text/javascript" style="display: none !important;">
+</script>
+<!-- SAPE RTB END --></div>
+
+<div>
+
+<script>
+	var countComments = 8;
+	var maxFileSize = 16777216;
+</script>
+<script type="text/javascript" src="./Музыкальный звонок на МК Attiny13_files/jquery.caret.1.02.min.js.download"></script>
+<script type="text/javascript" src="./Музыкальный звонок на МК Attiny13_files/comments.js.download"></script>
+
+<div id="comments">
+	
+	<h3>
+		<span id="loadComments" class="select">Комментарии (8)</span> <a href="https://cxem.net/rss_comments.php?rss_url=/mc/mc114.php"><img src="./Музыкальный звонок на МК Attiny13_files/rss_18.png" border="0"></a> |
+					<span id="loadBuilds" data-id="2702" class="select"> Я собрал (<span id="hbuildcount">0</span>)</span> |
+		
+
+		
+		<span id="subarea" style="position:relative;">
+			<span class="select" id="favArticleBottom">Подписаться</span>
+						<div class="subscribeEmail" style="position:absolute; width: 310px; text-align: center; z-index: 110; font-size: 12px;display: none; box-shadow: 0 0 10px #444; padding: 10px; background: #fff; bottom: 100%; margin-bottom: 10px; left: -20%;">
+				<input type="email" id="subscribeEmail" placeholder="E-mail для подписки"> <button class="button-ok" id="acceptEmailSubscription" type="button">OK</button>
+			</div>
+					</span>
+	</h3>
+
+			<div id="buildslist" style="background: #fff; padding: 10px; display: none;"></div>
+
+		<div id="builds_form" style="background: #fff; display: none; padding: 10px 15px; max-width: 800px; margin: 10px auto; border: 1px solid #B6B6B6; border-radius: 5px; box-shadow: 0 0 5px 0 #444">
+
+							<p class="text-center">Для добавления Вашей сборки необходима <a href="https://cxem.net/cms/registration/">регистрация</a></p>
+					</div>
+	
+
+	<div id="commentslist">
+		<a name="comment-16034"></a>
+<div style="margin-left: 0px;" class="comment16034 comment" id="16034">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">streetboy163 <span class="date"><time pubdate="" datetime="2013-02-01T00:21:51+03:00">01.02.2013 00:21</time></span> <a href="https://cxem.net/mc/mc114.php#comment-16034" rel="nofollow">#</a></div>
+		<div class="text">Можно подробнее пожалуйста, как создавать мелодии для МК?</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-20863"></a>
+<div style="margin-left: 0px;" class="comment20863 comment" id="20863">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">Владимир <span class="date"><time pubdate="" datetime="2013-06-18T08:15:04+03:00">18.06.2013 08:15</time></span> <a href="https://cxem.net/mc/mc114.php#comment-20863" rel="nofollow">#</a></div>
+		<div class="text">Могли бы Вы выложить мелодию, которая в первом ролике, она как-то субъективно громче и резче звучит - самое то, что нужно для звонка</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-21443"></a>
+<div style="margin-left: 20px;" class="comment21443 comment" id="21443">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">TDA2003 <span class="date"><time pubdate="" datetime="2013-07-09T13:17:06+03:00">09.07.2013 13:17</time></span> <a href="https://cxem.net/mc/mc114.php#comment-21443" rel="nofollow">#</a></div>
+		<div class="text">Это первая мелодия. Просто дерево слегка глушит звук.</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-27218"></a>
+<div style="margin-left: 0px;" class="comment27218 comment" id="27218">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">Arti <span class="date"><time pubdate="" datetime="2014-01-28T12:19:21+03:00">28.01.2014 12:19</time></span> <a href="https://cxem.net/mc/mc114.php#comment-27218" rel="nofollow">#</a></div>
+		<div class="text">Спасибо, все работает</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-31718"></a>
+<div style="margin-left: 0px;" class="comment31718 comment" id="31718">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">Сергей <span class="date"><time pubdate="" datetime="2014-07-15T01:07:36+03:00">15.07.2014 01:07</time></span> <a href="https://cxem.net/mc/mc114.php#comment-31718" rel="nofollow">#</a></div>
+		<div class="text">А пьезоизлучатель с генератором или без?</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-47814"></a>
+<div style="margin-left: 0px;" class="comment47814 comment" id="47814">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">Василий <span class="date"><time pubdate="" datetime="2016-02-14T21:04:49+03:00">14.02.2016 21:04</time></span> <a href="https://cxem.net/mc/mc114.php#comment-47814" rel="nofollow">#</a></div>
+		<div class="text">Схема замечательная, рабочая!  Хотелось бы поподробнее о создании мелодий.<br>
+Возможно ли установка нескольких мелодий со сменой после очередного нажатия?</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-48445"></a>
+<div style="margin-left: 0px;" class="comment48445 comment" id="48445">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">Семён <span class="date"><time pubdate="" datetime="2016-03-04T08:56:48+03:00">04.03.2016 08:56</time></span> <a href="https://cxem.net/mc/mc114.php#comment-48445" rel="nofollow">#</a></div>
+		<div class="text">Это получается фьюзы заводские остаются для МК?</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div><a name="comment-86670"></a>
+<div style="margin-left: 0px;" class="comment86670 comment" id="86670">
+	<div class="elements">
+		<img src="./Музыкальный звонок на МК Attiny13_files/up_notuser.png" class="up">
+		<span class="rating"><span style="color: gray">0</span></span>
+		<img src="./Музыкальный звонок на МК Attiny13_files/down_notuser.png" class="down">
+	</div>
+
+	<div class="avatar"><img src="./Музыкальный звонок на МК Attiny13_files/notuser.png" width="48"></div>
+	<div class="com_content">
+		<div class="title">Иван <span class="date"><time pubdate="" datetime="2023-01-18T10:06:53+03:00">18.01.2023 10:06</time></span> <a href="https://cxem.net/mc/mc114.php#comment-86670" rel="nofollow">#</a></div>
+		<div class="text">Где вы блин берете эти транзисторы? Они ломаются даже когда просто лежат</div>
+		
+		
+		<div class="answer" title="Ответить на данное сообщение">Ответить</div>
+		
+		
+	</div>
+</div>	</div>
+	
+	
+	<div id="comment_form">
+	<form id="comments" enctype="multipart/form-data">
+		<div class="caption">Добавить комментарий</div>
+
+		<div class="fields">
+
+			
+			
+				<div class="line">
+					<div class="label"><b>Имя:</b></div>
+					<div class="inputs"><input type="text" id="name" name="name" placeholder="Ваше имя" required="required"></div>
+				</div>
+				<div class="line">
+					<div class="label"><b>E-mail:</b></div>
+					<div class="inputs">
+						<input type="email" id="email" name="email" placeholder="Ваш E-mail" required="required">
+						<span style="font-size: 10px; margin-left: 5px; color: #aaa;">не публикуется</span>
+					</div>
+				</div>
+				<div class="line" style="margin: 7px 0;">
+					<div class="label"></div>
+					<input class="hidden" type="checkbox" id="email_noty" name="email_noty">
+					<label for="email_noty" title="Уведомлять меня по E-mail об ответах на мой комментарий">Уведомлять об ответах на мой комментарий</label>
+
+				</div>
+
+			
+
+			<div id="toolbar">
+				<div class="panel">
+					<div class="tooltip" onclick="selText(&#39;[b]&#39;, &#39;[/b]&#39;)" title="Жирный"><img src="./Музыкальный звонок на МК Attiny13_files/bold.png"></div>
+					<div class="tooltip" onclick="selText(&#39;[i]&#39;, &#39;[/i]&#39;)" title="Курсив"><img src="./Музыкальный звонок на МК Attiny13_files/italic.png"></div>
+					<div class="tooltip" onclick="selText(&#39;[u]&#39;, &#39;[/u]&#39;)" title="Подчеркнутый"><img src="./Музыкальный звонок на МК Attiny13_files/underline.png"></div>
+					<div class="tooltip" onclick="selText(&#39;[s]&#39;, &#39;[/s]&#39;)" title="Зачеркнутый"><img src="./Музыкальный звонок на МК Attiny13_files/strike.png"></div>
+				</div>
+
+				<div class="panel">
+					<div class="tooltip" onclick="selText(&#39;[quote]&#39;, &#39;[/quote]&#39;)" title="Цитата"><img src="./Музыкальный звонок на МК Attiny13_files/quote.png"></div>
+					<div class="tooltip" onclick="selText(&#39;[url=]&#39;, &#39;[/url]&#39;)" title="Ссылка"><img src="./Музыкальный звонок на МК Attiny13_files/link.png"></div>
+					<div class="tooltip" onclick="selText(&#39;[code]&#39;, &#39;[/code]&#39;)" title="Исходный код"><img src="./Музыкальный звонок на МК Attiny13_files/code.png"></div>
+									</div>
+			</div>
+
+			<div class="line" style="display: table;">
+				<div class="label" style="display:table-cell; vertical-align: middle;"><b>Текст:</b></div>
+				<div class="inputs"><textarea id="msg" name="msg" rows="7" placeholder="Ваш комментарий" required="required"></textarea></div>
+				<input type="hidden" name="root" id="root" value="0">
+			</div>
+
+			
+				<div class="line">
+					<div class="label"><b>Защита от спама:</b></div>
+					<div class="inputs">
+						<span style="font-size: 11px; color: #175aaa">В чем измеряется сила тока?</span><br>
+						<input type="text" name="answer" id="answer" placeholder="Ответ на вопрос" required="required">
+						<input type="hidden" name="answers" value="ампер, амперах, ампры, в ампер, в амперах">
+					</div>
+				</div>
+
+			
+			
+				<div class="line">
+					<div class="label" title="Прикрепить файлы к комментарию"><b>Файлы:</b><br>&nbsp;</div>
+					<div class="inputs" id="inputsFiles">
+						<input type="file" id="attachComment" name="attach[]" multiple="true">
+						<span id="attachProgress"></span>
+						<div style="font-size: 11px; color: #777;">Для выбора нескольких файлов использйте CTRL</div>
+					</div>					
+				</div>
+
+			
+					</div>
+
+		<div style="margin: 10px 0 10px 80px; width: 340px;">
+							<input class="hidden" type="checkbox" id="commentsrules" name="rules">
+				<label for="commentsrules">Я согласен с <a href="https://cxem.net/mc/mc114.php#" id="rulescomments">правилами публикации комментариев</a></label>
+				<p>
+					<!--<a class="buildadd" style="float: right;" href="#" title="Написать про результат своей сборки">Я собрал</a>-->
+
+					<button type="submit" name="send" id="send" class="button-ok">Оставить комментарий</button>
+				</p>
+			
+		</div>
+		<div class="errors">
+		</div>
+	</form>
+
+	
+<div class="comment-books _my-ctr" data-id="116" data-category="1" id="_myproduct116">
+	<div class="cbooks-picture">
+		<div class="cbooks-image">
+			<img src="./Музыкальный звонок на МК Attiny13_files/116_h225.jpg" style="max-height:225px; max-width: 250px;" title="AVR-программатор USB ASP" alt="AVR-программатор USB ASP">
+			<div class="bottom_hint">
+				AVR-программатор USB ASP			</div>
+		</div>
+		<div class="cbooks-buy"><a href="http://ali.pub/0zmc4" rel="nofollow" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;aliexpress&#39;, &#39;click-comment&#39;, &#39;AVR-программатор USB ASP&#39;);" class="button button-ok">Купить 4 $ </a></div>
+  </div>
+</div>
+
+<div class="comment-books-additional"><span class="_my-ctr" data-id="112" data-category="1" id="_myproduct112">
+					<a href="http://ali.pub/cgx5l" rel="nofollow" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;aliexpress&#39;, &#39;click-comment&#39;, &#39;Мультиметр Mastech MS8239C&#39;);"><img src="./Музыкальный звонок на МК Attiny13_files/112_h110.jpg" height="110px" srcset="//cxem.net/cache/ds_08/112_s.jpg 2x" title="Мультиметр Mastech MS8239C [21 $]" alt="Мультиметр Mastech MS8239C" style="max-width: 120px;"></a>
+				   </span><span class="_my-ctr" data-id="105" data-category="1" id="_myproduct105">
+					<a href="http://alipromo.com/redirect/cpa/o/2e314eb8f3bfc7352b554e12a3d7cc01" rel="nofollow" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;aliexpress&#39;, &#39;click-comment&#39;, &#39;200 Вт усилитель класса D на IRS2092&#39;);"><img src="./Музыкальный звонок на МК Attiny13_files/105_h110.jpg" height="110px" srcset="//cxem.net/cache/ds_08/105_s.jpg 2x" title="200 Вт усилитель класса D на IRS2092 [24 $]" alt="200 Вт усилитель класса D на IRS2092" style="max-width: 120px;"></a>
+				   </span></div>
+</div>
+	<div class="toTop">вверх</div>
+</div>
+</div>
+	
+	<div id="footer">
+		<div class="copyright">
+			<div class="cnt"><strong>1999-2024 Сайт-ПАЯЛЬНИК  'cxem.net'</strong><br>
+			При использовании материалов сайта, обязательна<br>
+			ссылка на сайт ПАЯЛЬНИК и первоисточник</div>
+		</div>
+		<div class="social">
+			<a href="http://vk.com/cxem_net_payalnik" rel="nofollow"><img src="./Музыкальный звонок на МК Attiny13_files/social_vk.png" border="0"></a>
+			<a href="https://www.youtube.com/channel/UCh9cB06Agv1Z8QTIkiGqotA" rel="nofollow"><img src="./Музыкальный звонок на МК Attiny13_files/social_youtube.png" border="0"></a>
+			<!-- <a href="https://www.facebook.com/cxemnet" rel="nofollow"><img src="//cxem.net/images/social_fb.png" border="0"></a>	 -->		
+			<a href="http://cxem.net/contact.php"><img src="./Музыкальный звонок на МК Attiny13_files/social_email.png" border="0"></a>
+		</div>
+		<div style="text-align: center"><div class="rek_plashka banner_pod"><div style="text-align: center;"><a href="https://www.compel.ru/lib/214551?utm_source=cxem.net&amp;utm_medium=banner&amp;utm_campaign=eve&amp;utm_content=20240401&amp;utm_term=468x60&amp;erid=4CQwVszL76wmsDyniXU"><img src="./Музыкальный звонок на МК Attiny13_files/cxem_bottom_1712735213.png"></a></div><span class="plashka_tooltip" data-microtip-position="bottom-left" role="tooltip" data-microtip-size="medium" aria-label="АО КОМПЭЛ, ИНН: 7713005406, ОГРН: 1027700032161">Реклама ⓘ</span></div></div>		<div class="adv_text">
+			<a href="http://cxem.net/reklama.php">Размещение рекламы</a>
+		</div>
+		<div class="stat">
+			<!-- СЧЕТЧИКИ -->
+				<a href="http://www.liveinternet.ru/click;payalnik_all" target="_blank" rel="nofollow"><img src="./Музыкальный звонок на МК Attiny13_files/logo" title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня" border="0" width="88" height="31" style="display: none !important;"></a>
+			<!-- /СЧЕТЧИКИ -->				
+		</div>
+	</div>
+</div>
+
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'ydi_cxem_bottom1',
+    blockId: 'R-A-126079-1'
+  })
+})</script>
+
+<!-- <script src="/js/ad_new.js"></script> -->
+
+
+</body></html>

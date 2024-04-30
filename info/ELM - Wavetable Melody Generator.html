@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="Audio" href="../../he_a_e.html">
+<link rel="stylesheet" href="../works_e.css" type="text/css" media="screen" title="ELM Default">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="report.html">
+<style type="text/css" media="screen" title="ELM Default">
+.wd {min-width: 520px;}
+</style>
+<title>ELM - Wavetable Melody Generator</title>
+</head>
+
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<p class="hdd">January 17, 2006</p>
+<h1>Wavetable Melody Generator</h1>
+<hr class="hds">
+</div>
+
+
+<div class="abst">
+<img class="rset" src="tn45.jpeg" alt="Tiny45" width="289" height="168">
+<p>This is a music generator circuit that will be the most popular teaching matter for electronics handicrafts. In this project, I tried to apply <em>Wavetable Method</em> to simulate a mechanical music box exactly; as a result, I could achieve to ganarate <a href="mg.mpg">a sound like music box</a>.</p>
+</div>
+
+<div class="para">
+<h3>Wavetable Synthesizer</h3>
+<p>The wavetable synthesizer synthesizes a sound with pre-sampled (pre-synthesized) waveform. This is a method that have established at dawn of digital synthesizer. MOD Sound on AMIGA is the first time that wavetable synthesizer was realized on the PC if my memory serves. Ofcourse the wavetable synthesizer is embedded as a sound driver into recent PCs. The theory of wavetable synthesizer is very simple and its processor load is relatively low. However, it requires large amount of memory because there are wavetable data for source of sound. Therefore, following technics are applied to existing wavetable synthesizer.</p>
+<ol>
+<li>Not reserve wavetables for each tone. It can also synthesize any tone with a wavetable with changing play back speed.</li>
+<li>Not reserve all part of wavetable. Monotonous part can be replaced with a loop.</li>
+<li>Decaying waveform can be simulated in envelope genarotor.</li>
+</ol>
+</div>
+
+<div class="para">
+<h3>Software</h3>
+
+<h4>How Wavetable Synthesizer Works</h4>
+<div class="rset wd">
+<div class="lset">
+Wavetable Synthesizer<br><img src="syn.png" alt="Wavetable Synth" width="240" height="256">
+</div>
+Reading a Wavetable<br><img src="wt.png" alt="Wavetable" width="270" height="180">
+</div>
+<p>Because the sound of music box is relatively simple, it is easy to simulate with cheap microcontroller. The attack part, instant the comb tooth picked, changes its waveform drastically and it has many overtones. The susutain part is a monotone with slow decay. Release part is not needed. The wavetable can be divided in two part, attack and sustain. The sustain part is read in wrap arownd to reduce memory space.</p>
+<p>When note is on, tone register (&omega;), read pointer (&phi;) and envelope generator will be initialized. The read pointer is increased by tone register every sampling time, so that generated tone can be determined by value of tone register at will. This is the same principle of <em><abbr title="Direct Digital Synthesizer">DDS</abbr></em>. When look up any value from wavetable, interpolation with fractional part of read pointer is effective to eliminate aliasing error but not implemented to this project. The envelope generator makes decay sound with changing wave amplitude slowly.</p>
+
+<h4>Implementation of Wavetable Synthesizer</h4>
+<div class="rset">
+Processing Diagram<br><img src="sw.png" alt="Processing Diagram" width="460" height="170">
+</div>
+<p>To simulate sound of the music box, it can generating a <em>chord tone</em> is the most impotant term. Thus several number of wavetable synthesizer channels must be implimented. The number of sound channels affects load of the processor, increasing number of channels decreases sampling frequency and it results loss of the sound clarity. Therefore these terms must be weigh in balance. I decided that it is <em>6 channels in 32 ksps</em>.</p>
+<p>The foreground process reads a score and start note with each wavetable synthesizer channels in sequence. The synthesizer channels are driven in background process (32 kHz timer interrupt) and the outputs are mixed, clipped and fed to PWM modulator. Because number of channles is small, when a number of notes are on at a time, old notes are overwritten and canceled by new one. It some times stand out that especially low key notes, they decay slowly, are canceled.</p>
+<p>I cound to implement these processes into an Atmel <em>ATtiny45</em> with success. The ATtiny45 has internal 16 MHz PLL oscillator, 4KB ROM and 250 kHz fast PWM, and it does not require any external component. The processor load ratio for wavetable sinthesizer reaches over 80 percent. When use ATmega series AVRs which have hardware multiplyer, number of synthesizer channels or synthesizing accuracy will able to be increased easy.</p>
+</div>
+
+<div class="para">
+<h3>Hardware</h3>
+<p>There is nothing to explain. The fuse setting is found in <a href="mg.png">circuit diagram</a>, and write <a href="mg.zip">program code</a> will do.</p>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>

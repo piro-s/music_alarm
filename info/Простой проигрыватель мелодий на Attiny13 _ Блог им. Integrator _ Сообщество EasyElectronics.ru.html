@@ -1,0 +1,1264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ru">
+<head>
+	
+	
+	<title>Простой проигрыватель мелодий на Attiny13 / Блог им. Integrator / Сообщество EasyElectronics.ru</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="Для новогодней поделки сделал простой проигрыватель-пищалку.  Устройство может проигрывать ноты 1, 2, и частично 3 октавы длительностью 1, 2, 4," />
+	<meta name="keywords" content="avr,Attiny13,музыка,проигрыватель,Новый год" />
+
+	<link rel='stylesheet' type='text/css' href="https://we.easyelectronics.ru/templates/cache/new-jquery/4d4ed6a4d89255b3d588dd3d98d8891b.css" />
+
+
+	<link href="https://we.easyelectronics.ru/templates/skin/new-jquery/images/favicon.ico" rel="shortcut icon" />
+	<link rel="search" type="application/opensearchdescription+xml" href="https://we.easyelectronics.ru/search/opensearch/" title="Сообщество EasyElectronics.ru" />
+
+			<link rel="alternate" type="application/rss+xml" href="https://we.easyelectronics.ru/rss/comments/4198/" title="Простой проигрыватель мелодий на Attiny13">
+		
+		
+	<script language="JavaScript" type="text/javascript">
+	var DIR_WEB_ROOT 			= 'http://we.easyelectronics.ru';
+	var DIR_STATIC_SKIN 		= 'http://we.easyelectronics.ru/templates/skin/new-jquery';
+	var DIR_ROOT_ENGINE_LIB     = 'http://we.easyelectronics.ru/engine/lib'; 
+	var LIVESTREET_SECURITY_KEY = 'e2ca7486a26556ba88b51eba4823361a';
+	var SESSION_ID              = 'hcdtmejdbl9lc8hmp14fdsq817'; 
+	var BLOG_USE_TINYMCE		= '';
+
+	var TINYMCE_LANG='en';
+			TINYMCE_LANG='ru';
+	
+	var aRouter = new Array();
+			aRouter['error'] = 'http://we.easyelectronics.ru/error/';
+			aRouter['registration'] = 'http://we.easyelectronics.ru/registration/';
+			aRouter['profile'] = 'http://we.easyelectronics.ru/profile/';
+			aRouter['my'] = 'http://we.easyelectronics.ru/my/';
+			aRouter['blog'] = 'http://we.easyelectronics.ru/blog/';
+			aRouter['personal_blog'] = 'http://we.easyelectronics.ru/personal_blog/';
+			aRouter['top'] = 'http://we.easyelectronics.ru/top/';
+			aRouter['index'] = 'http://we.easyelectronics.ru/index/';
+			aRouter['new'] = 'http://we.easyelectronics.ru/new/';
+			aRouter['topic'] = 'http://we.easyelectronics.ru/topic/';
+			aRouter['login'] = 'http://we.easyelectronics.ru/login/';
+			aRouter['people'] = 'http://we.easyelectronics.ru/people/';
+			aRouter['settings'] = 'http://we.easyelectronics.ru/settings/';
+			aRouter['tag'] = 'http://we.easyelectronics.ru/tag/';
+			aRouter['talk'] = 'http://we.easyelectronics.ru/talk/';
+			aRouter['comments'] = 'http://we.easyelectronics.ru/comments/';
+			aRouter['rss'] = 'http://we.easyelectronics.ru/rss/';
+			aRouter['link'] = 'http://we.easyelectronics.ru/link/';
+			aRouter['question'] = 'http://we.easyelectronics.ru/question/';
+			aRouter['blogs'] = 'http://we.easyelectronics.ru/blogs/';
+			aRouter['search'] = 'http://we.easyelectronics.ru/search/';
+			aRouter['admin'] = 'http://we.easyelectronics.ru/admin/';
+			aRouter['ajax'] = 'http://we.easyelectronics.ru/ajax/';
+			aRouter['feed'] = 'http://we.easyelectronics.ru/feed/';
+			aRouter['stream'] = 'http://we.easyelectronics.ru/stream/';
+			aRouter['photoset'] = 'http://we.easyelectronics.ru/photoset/';
+			aRouter['language'] = 'http://we.easyelectronics.ru/language/';
+			aRouter['attachments'] = 'http://we.easyelectronics.ru/attachments/';
+			aRouter['cleaner_settings'] = 'http://we.easyelectronics.ru/cleaner_settings/';
+			aRouter['openid_login'] = 'http://we.easyelectronics.ru/openid_login/';
+			aRouter['openid_settings'] = 'http://we.easyelectronics.ru/openid_settings/';
+			aRouter['page'] = 'http://we.easyelectronics.ru/page/';
+		</script>
+
+	<script type='text/javascript' src="https://we.easyelectronics.ru/templates/cache/new-jquery/d334fdf7017831cab7dacd7536bca92e.js"></script>
+
+    
+	<script language="JavaScript" type="text/javascript">
+		var tinyMCE=false;
+		ls.lang.load({"blog_join":"\u0432\u0441\u0442\u0443\u043f\u0438\u0442\u044c \u0432 \u0431\u043b\u043e\u0433","blog_leave":"\u043f\u043e\u043a\u0438\u043d\u0443\u0442\u044c \u0431\u043b\u043e\u0433"});
+	</script>
+	
+	
+</head>
+
+
+<body onload="prettyPrint()">
+
+
+	
+	<div id="header">
+			<div class="auth">
+			<a href="https://we.easyelectronics.ru/login/" id="login_form_show" class="login-link">Войти</a> или 
+			<a href="https://we.easyelectronics.ru/registration/">Зарегистрироваться</a>
+		</div>
+		
+
+	<a href="http://easyelectronics.ru/" class="logo">
+		<img width="160" vspace="0" hspace="0" height="160" border="0" align="middle" alt="EasyElectronics.ru" src="https://we.easyelectronics.ru/templates/skin/easyelectronics/images/logo.jpg">
+		</a>
+		<a class="logo" href="https://we.easyelectronics.ru"><span>Сообщество EasyElectronics.ru</span></a>
+		
+	
+	
+	<ul class="pages">
+		<li class="active"><a href="https://we.easyelectronics.ru">Топики</a></li>
+		<li ><a href="https://we.easyelectronics.ru/blogs/">Блоги</a></li>
+		<li ><a href="https://we.easyelectronics.ru/people/">Люди</a></li>
+		<li> <a href="http://forum.easyelectronics.ru/">Форум</a></li>
+		<li> <a href="http://shop.easyelectronics.ru/">Магазин</a></li>
+								
+			<li ><a href="https://we.easyelectronics.ru/page/Konkurs/">Конкурс</a></li>
+	<li ><a href="https://we.easyelectronics.ru/page/about/">Справочная</a></li>
+	
+	</ul>
+</div>	<div id="nav">
+	<div id="nav-inner">
+			
+	
+					<ul class="menu">
+	<li >
+		<a href="https://we.easyelectronics.ru/">Все</a> 			</li>
+
+	<li >
+		<a href="https://we.easyelectronics.ru/blog/">Коллективные</a> 			</li>
+
+	<li class="active">
+		<a href="https://we.easyelectronics.ru/personal_blog/">Персональные</a> 					<ul class="sub-menu">
+				<li ><a href="https://we.easyelectronics.ru/personal_blog/">Хорошие</a></li>
+								<li ><a href="https://we.easyelectronics.ru/personal_blog/bad/">Плохие</a></li>
+				
+			</ul>
+			</li>
+	
+		
+	<li >
+		<a href="https://we.easyelectronics.ru/top/">TOP</a>
+			</li>
+
+	
+</ul>				
+		
+		<form action="https://we.easyelectronics.ru/search/topics/" method="GET" class="search">
+			<input class="text" type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Поиск" name="q" />
+			<input class="search-submit" type="submit" value="" />
+		</form>
+	</div>
+</div>
+
+	<div id="container">
+		<div id="wrapper" class=" ">
+			<div id="content" >
+				<div id="content-inner">
+						<div class="login-form jqmWindow" id="login_form">
+		<a href="#" class="close jqmClose"></a>
+		
+		<form action="https://we.easyelectronics.ru/login/" method="POST">
+			<h3>Авторизация</h3>
+
+			<a href="https://we.easyelectronics.ru/login/openid/" title="Войти через OpenID, GMail, ВКонтакте, Facebook, Twitter, Yandex, Rambler"><img src="https://we.easyelectronics.ru/plugins/openid/templates/skin/default/img/openid.png" alt="OpenID" style="margin-bottom: 10px;" /></a><br>
+
+
+			<p><label>Логин или эл. почта:<br />
+			<input type="text" class="input-text" name="login" id="login-input"/></label></p>
+			
+			<p><label>Пароль:<br />
+			<input type="password" name="password" class="input-text" /></label></p>
+			
+			<label class="label-remember"><input type="checkbox" name="remember" class="checkbox" checked />Запомнить меня</label>
+
+			
+
+			<input type="submit" name="submit_login" class="button" value="Войти" /><br /><br />
+			
+			<a href="https://we.easyelectronics.ru/login/reminder/">Напомнить пароль</a><br />
+			<a href="https://we.easyelectronics.ru/registration/">Регистрация</a>
+		</form>
+	</div>
+						
+
+						
+					
+
+        
+<div class="topic">
+	<h1 class="title">
+							Простой проигрыватель мелодий на Attiny13
+			</h1>
+	
+	<a href="#" onclick="return ls.favourite.toggle(4198,this,'topic');" class="favourite "></a>
+
+	
+	<div class="info-top">
+		<a href="https://we.easyelectronics.ru/my/Integrator/" class="title-blog">Блог им. Integrator</a>
+	
+		<span class="actions">                                                                   
+								</span>
+	</div>
+	
+	
+	<div class="content">
+		
+    
+    <!-- ������.������ -->
+
+<a href="https://www.pcbway.com/?from=we.easyelec2021.ru"><img src="http://easyelectronics.ru/img/pbwy/750x170.png"></a> <p></p>
+   
+    
+
+                        
+
+
+
+
+			 Для новогодней поделки сделал простой проигрыватель-пищалку. <br/>
+<br/>
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/M_YqySuGmCA&hl=en"></param><param name="wmode" value="opaque"></param><embed src="https://www.youtube.com/v/M_YqySuGmCA&hl=en" type="application/x-shockwave-flash" wmode="opaque" width="425" height="344"></embed></object><br/>
+<a name="cut" rel="nofollow"></a> <br/>
+<br/>
+Устройство может проигрывать ноты 1, 2, и частично 3 октавы длительностью 1, 2, 4, 8, 16, 32, 64. Форма выходного сигнала — меандр.<br/>
+Для генерации сигнала используется единственный таймер, который работает в режиме CTC. <br/>
+<br/>
+Ноты мелодии находятся в байтовом массиве в флэш памяти и воспроизводятся последовательно. Каждый байт содержит номер ноты(биты 0-4) и значение длительности(биты 4-7). Форма записи массива следующая:<br/>
+<pre class="prettyprint"><code>{
+nC2 + dX32,
+nA1 + dX16,
+nSL + dX16,
+..
+}</code></pre><br/>
+где nC2 и nA1 — обозначение нот До второй октавы и Ля первой октавы. dX32 продолжительность звучания ноты nC2 равная 32, а dX16 — ноты nA1 равная 16 соответственно. Минимальная продолжительность по умолчанию определена 60мс(можно изменить в notes.h).<br/>
+<br/>
+Нота nSL обозначает паузу, длительность задается также как и у остальных нот.<br/>
+<br/>
+Схема:<br/>
+<a href="http://savepic.ru/8251882.htm" target="_blank" rel="nofollow"><img src="http://savepic.ru/8251882m.jpg" alt="Изображение - savepic.ru — сервис хранения изображений"/></a><br/>
+<br/>
+Устройство рассчитано на работу с пьезоизлучателем звука(тот что на видео взят из старого проводного телефона), если будет использоваться электромагнитный, то желательно на выход поставить транзистор.<br/>
+<br/>
+Фьюзы для прошивки LOW = 0x79; HIGH = 0xFF<br/>
+<br/>
+Нажатием на кнопку мелодия меняется.<br/>
+<br/>
+Как добавить свою мелодию.<br/>
+Есть несколько вариантов:<br/>
+<br/>
+1. берете нотную запись произведения, и выписываете ноты в массив — это долго, нудно и требует некоторых музыкальных знаний.<br/>
+<br/>
+2. взять готовый трекерный модуль (MOD, midi и т.п.) открыть в трекерном редакторе, например openMPT, и скопировать последовательность нот от туда. Вариант тоже не очень, т.к. модули почти всегда многоголосные и многоканальные а у нас генератор одноканальный и для него придется сводить все в один канал.<br/>
+<br/>
+3. самый простой способ — найти в интернете запись для музыкального синтезатора например мобильного nokia composer. <br/>
+Запись мелодии имеет вид типа:<br/>
+<pre class="prettyprint"><code>4a1 4a1 4a1 4f1 16c2 4a1 4f1 16c2 2a1 4e2 4e2 4e2 4f2 16c2 4#g1 4f1 16c2 2a1 4a2 4a1 16a1 4a2 4#g2 16g2 16#f2 16f2 4#f2 8#a1 4#d2 4d2 16#c2 16c2 16b1 4c2 8f1 4#g1 4f1 16#g1 4c2 4a1 16c2 2e2 4a2 4a1 16a1 4a2 4#g2 16g2 16#f2 16f2
+</code></pre><br/>
+Здесь первые цифры перед нотой обозначают длительность, паузы часто обозначаются символом &quot;-&quot;, нужно все это отредактировать и собрать в массив.<br/>
+<pre class="prettyprint"><code>
+{
+dX04 + nA1, dX04 + nA1, dX04 + nA1, dX04 + nF1, dX16 + nC2, dX04 + nA1, dX04 + nF1, dX16 + nC2, dX02 + nA1, dX04 + nE2, dX04 + nE2, dX04 + nE2, dX04 + nF2, dX16 + nC2, dX04 + nG1d, dX04 + nF1, dX16 + nC2, dX02 + nA1, dX04 + nA2, dX04 + nA1, dX16 + nA1, dX04 + nA2, dX04 + nG2d, dX16 + nG2, dX16 + nF2d, dX16 + nF2, dX04 + nF2d, dX08 + nA1d, dX04 + nD2d, dX04 + nD2, dX16 + nC2d, dX16 + nC2, dX16 + nB1, dX04 + nC2, dX08 + nF1, dX04 + nG1d, dX04 + nF1, dX16 + nG1d, dX04 + nC2, dX04 + nA1, dX16 + nC2, dX02 + nE2, dX04 + nA2, dX04 + nA1, dX16 + nA1, dX04 + nA2, dX04 + nG2d, dX16 + nG2, dX16 + nF2d, dX16 + nF2
+}</code></pre><br/>
+В текущей версии 3 мелодии.<br/>
+1. елочка.<br/>
+2. кабы не было зимы.<br/>
+3. три белых коня.<br/>
+<br/>
+Прошивка и исходники проекта <a href="https://github.com/integratorsb/snowstar/" rel="nofollow">github.com/integratorsb/snowstar/</a><br/>
+<br/>
+Всех с новым годом!
+			</div> 
+
+
+
+	<ul class="tags">
+					<li><a href="https://we.easyelectronics.ru/tag/avr/">avr</a>, </li>
+					<li><a href="https://we.easyelectronics.ru/tag/Attiny13/">Attiny13</a>, </li>
+					<li><a href="https://we.easyelectronics.ru/tag/%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0/">музыка</a>, </li>
+					<li><a href="https://we.easyelectronics.ru/tag/%D0%BF%D1%80%D0%BE%D0%B8%D0%B3%D1%80%D1%8B%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C/">проигрыватель</a>, </li>
+					<li><a href="https://we.easyelectronics.ru/tag/%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%B3%D0%BE%D0%B4/">Новый год</a></li>
+		                                                             
+	</ul>
+
+
+
+	<ul class="info">
+		<li id="vote_area_topic_4198" class="voting positive guest">
+			<a href="#" class="plus" onclick="return ls.vote.vote(4198,this,1,'topic');"></a>
+			<span id="vote_total_topic_4198" class="total" title="всего проголосовало: 7"> +5 </span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(4198,this,-1,'topic');"></a>
+		</li>
+		<li class="date">02 января 2016, 01:55</li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Integrator/">Integrator</a></li>
+				
+    
+	</ul>
+			            
+	</div>	
+<div class="comments-header">
+	<h3>Комментарии (<span id="count-comments">15</span>)</h3>
+		<a href="https://we.easyelectronics.ru/rss/comments/4198/" class="rss">RSS</a>
+		<a href="#" onclick="ls.comments.collapseCommentAll(); return false;" onfocus="blur();">свернуть</a> /
+	<a href="#" onclick="ls.comments.expandCommentAll(); return false;" onfocus="blur();">развернуть</a>
+</div>
+
+<a name="comments"></a>
+	
+	
+<div class="comments" id="comments">
+						
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166317">
+		
+		
+<div id="comment_id_166317" class="comment not-admin " >
+	<a name="comment166317" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166317" class="content">
+			
+			Круто, за способы добавить свою мелодию — отдельный респект (;
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166317" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166317,this,1,'comment');"></a>
+			<span id="vote_total_comment_166317" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166317,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/DySprozin/"><img src="https://we.easyelectronics.ru/uploads/images/00/56/04/2022/07/02/avatar_24x24.jpg?204358" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/DySprozin/">DySprozin</a></li>
+		<li class="date">02 января 2016, 16:03</li>
+				<li><a href="#comment166317" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166328">
+		
+		
+<div id="comment_id_166328" class="comment not-admin " >
+	<a name="comment166328" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166328" class="content">
+			
+			Посмотрел видео… слышал звук вставки батарейки 0:15… а вот мелодий не услышал… не то видео?
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166328" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166328,this,1,'comment');"></a>
+			<span id="vote_total_comment_166328" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166328,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/plcist/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/plcist/">plcist</a></li>
+		<li class="date">03 января 2016, 12:20</li>
+				<li><a href="#comment166328" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166330">
+		
+		
+<div id="comment_id_166330" class="comment not-admin " >
+	<a name="comment166330" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166330" class="content">
+			
+			Плохо слушал (если только это не намек на качество мелодий). Там явно не хватает резонатора на пьезике.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166330" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166330,this,1,'comment');"></a>
+			<span id="vote_total_comment_166330" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166330,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Vga/"><img src="https://we.easyelectronics.ru/uploads/images/00/00/56/2011/03/07/avatar_24x24.gif?135827" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">03 января 2016, 12:28</li>
+				<li><a href="#comment166330" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166330,166328); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166331">
+		
+		
+<div id="comment_id_166331" class="comment not-admin " >
+	<a name="comment166331" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166331" class="content">
+			
+			Усилил в видеоредакторе звук на 20 дб — услышал несколько писков… но на мелодию не тянет<br/>
+с возрастом человек перестаёт слышать ультразвук :( — есть какой то видео фокус с использованием малолеток, которым в ультразвуковом диапазоне говорят подсказки, которые не слышны взрослым…<br/>
+это случай этот?<br/>
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/TzCZMBwFT98&hl=en"></param><param name="wmode" value="opaque"></param><embed src="https://www.youtube.com/v/TzCZMBwFT98&hl=en" type="application/x-shockwave-flash" wmode="opaque" width="425" height="344"></embed></object>
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166331" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166331,this,1,'comment');"></a>
+			<span id="vote_total_comment_166331" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166331,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/plcist/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/plcist/">plcist</a></li>
+		<li class="date">03 января 2016, 12:53</li>
+				<li><a href="#comment166331" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166331,166330); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166332">
+		
+		
+<div id="comment_id_166332" class="comment not-admin " >
+	<a name="comment166332" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166332" class="content">
+			
+			Нет, просто безобразно тихо (если мне не изменяет память, поддерживаемые этой пиликалкой ноты находятся в субкилогерцовом диапазоне). Голый пьезик — крайне неэффективный излучатель, ему нужно правильное акустическое оформление. Да и амплитуду сигнала не мешало бы иметь побольше (классический усилительный каскад с дросселем или хотя бы воткнуть между двумя выходами МК, работающими в противофазе)
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166332" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166332,this,1,'comment');"></a>
+			<span id="vote_total_comment_166332" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166332,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Vga/"><img src="https://we.easyelectronics.ru/uploads/images/00/00/56/2011/03/07/avatar_24x24.gif?135827" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">03 января 2016, 13:12</li>
+				<li><a href="#comment166332" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166332,166331); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166333">
+		
+		
+<div id="comment_id_166333" class="comment not-admin " >
+	<a name="comment166333" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166333" class="content">
+			
+			Как помню — металлическая пробка от бутылки Пепси или Пива является хорошим усилком для подобной пьезы… и паялась, так как делалась из лужёной стали.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166333" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166333,this,1,'comment');"></a>
+			<span id="vote_total_comment_166333" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166333,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/plcist/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/plcist/">plcist</a></li>
+		<li class="date">03 января 2016, 13:30</li>
+				<li><a href="#comment166333" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166333,166332); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166351">
+		
+		
+<div id="comment_id_166351" class="comment not-admin " >
+	<a name="comment166351" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166351" class="content">
+			
+			Да, дело в излучателе, видимо амплитуда сигнала низковата, там откуда он взят, питание 12в. Если его жестко закрепить, то звук становится громче. <br/>
+Пробовал ставить зп-22 у него звук гораздо громче, но по размерам не подошел — великоват.<br/>
+Ультразвука там нет и быть не может, частоты нот стандартные, взяты из таблицы.<br/>
+<img src="https://we.easyelectronics.ru/uploads/images/00/12/28/2016/01/04/1d2f91.jpg" align="left" />
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166351" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166351,this,1,'comment');"></a>
+			<span id="vote_total_comment_166351" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166351,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Integrator/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Integrator/">Integrator</a></li>
+		<li class="date">04 января 2016, 02:16</li>
+				<li><a href="#comment166351" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166351,166332); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166508">
+		
+		
+<div id="comment_id_166508" class="comment not-admin " >
+	<a name="comment166508" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166508" class="content">
+			
+			Вот хорошая таблица (кликабельно).<br/>
+<a href="http://i.piccy.info/i9/143e1ac1f9c7401e0a56a88636c4e3bb/1452163842/90066/989751/chastoty.jpg" rel="nofollow"><img src="https://we.easyelectronics.ru/uploads/images/00/11/58/2016/01/07/1d7517.jpg" /></a>
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166508" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166508,this,1,'comment');"></a>
+			<span id="vote_total_comment_166508" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166508,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Bonio/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Bonio/">Bonio</a></li>
+		<li class="date">07 января 2016, 14:51</li>
+				<li><a href="#comment166508" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166508,166351); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_166337">
+		
+		
+<div id="comment_id_166337" class="comment not-admin " >
+	<a name="comment166337" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166337" class="content">
+			
+			Тут еще может сам микрофон в камере УГ полное… вот и получается: сам излучатель+микрофон+динамики(которые воспроизвели)+ухо человека
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166337" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166337,this,1,'comment');"></a>
+			<span id="vote_total_comment_166337" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166337,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/kalik/"><img src="https://we.easyelectronics.ru/uploads/images/00/24/23/2012/01/25/avatar_24x24.jpg?000720" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/kalik/">kalik</a></li>
+		<li class="date">03 января 2016, 14:17</li>
+				<li><a href="#comment166337" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166337,166331); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166338">
+		
+		
+<div id="comment_id_166338" class="comment not-admin " >
+	<a name="comment166338" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166338" class="content">
+			
+			Такие частоты он должен неплохо ловить, все же. Да и слышно мелодию, тихо только очень — как раз так, как это типично для голого пьезика.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166338" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166338,this,1,'comment');"></a>
+			<span id="vote_total_comment_166338" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166338,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Vga/"><img src="https://we.easyelectronics.ru/uploads/images/00/00/56/2011/03/07/avatar_24x24.gif?135827" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">03 января 2016, 15:38</li>
+				<li><a href="#comment166338" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166338,166337); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166339">
+		
+		
+<div id="comment_id_166339" class="comment not-admin " >
+	<a name="comment166339" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166339" class="content">
+			
+			<a href="https://youtu.be/kCF_KJTTi9M" rel="nofollow">Я чет подобное в студ.годы пробовал пищать движком</a>, качество было звука подобным. Друзья видео записывалось на несколько камер… так с нескольких вообще ничего не было слышно, а с одной еле еле… не сравнимо с оригиналом. Самое лучшее качество звука получилось в самом дубовом мобильнике
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166339" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166339,this,1,'comment');"></a>
+			<span id="vote_total_comment_166339" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166339,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/kalik/"><img src="https://we.easyelectronics.ru/uploads/images/00/24/23/2012/01/25/avatar_24x24.jpg?000720" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/kalik/">kalik</a></li>
+		<li class="date">03 января 2016, 16:22</li>
+				<li><a href="#comment166339" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166339,166338); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166340">
+		
+		
+<div id="comment_id_166340" class="comment not-admin " >
+	<a name="comment166340" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166340" class="content">
+			
+			Есть электронные открытки… микросхемы УМС… китайские игрушки… я их чётко слышу<br/>
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/6hKOeQ-3gFg&hl=en"></param><param name="wmode" value="opaque"></param><embed src="https://www.youtube.com/v/6hKOeQ-3gFg&hl=en" type="application/x-shockwave-flash" wmode="opaque" width="425" height="344"></embed></object>
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166340" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166340,this,1,'comment');"></a>
+			<span id="vote_total_comment_166340" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166340,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/plcist/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/plcist/">plcist</a></li>
+		<li class="date">03 января 2016, 16:39</li>
+				<li><a href="#comment166340" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166340,166339); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_166343">
+		
+		
+<div id="comment_id_166343" class="comment not-admin " >
+	<a name="comment166343" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166343" class="content">
+			
+			Гы, писал подобное для системного динамика еще на Бейсике. <br/>
+По факту, порог слышимости зависит от громкости звука, звуковухи и АС, так что мне кажется что тест игрушка.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166343" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166343,this,1,'comment');"></a>
+			<span id="vote_total_comment_166343" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166343,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Signaller/"><img src="https://we.easyelectronics.ru/uploads/images/00/08/09/2011/05/14/avatar_24x24.jpg?135730" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Signaller/">Signaller</a></li>
+		<li class="date">03 января 2016, 21:26</li>
+				<li><a href="#comment166343" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166343,166331); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_166352">
+		
+		
+<div id="comment_id_166352" class="comment not-admin " >
+	<a name="comment166352" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166352" class="content">
+			
+			Он еще и подозрительно резко срезается на 15кГц. На программных свипах такого не замечал, больше похоже что кодек ВЧ срезал.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166352" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166352,this,1,'comment');"></a>
+			<span id="vote_total_comment_166352" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166352,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Vga/"><img src="https://we.easyelectronics.ru/uploads/images/00/00/56/2011/03/07/avatar_24x24.gif?135827" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">04 января 2016, 03:50</li>
+				<li><a href="#comment166352" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment(166352,166343); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_166507">
+		
+		
+<div id="comment_id_166507" class="comment not-admin " >
+	<a name="comment166507" ></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_166507" class="content">
+			
+			Тоже делал музыкальную открытку на attiny13, пьезу через транзисторный усилитель подключил, и к бумаге двухстороннем скотчем приклеил, громкость намного больше была.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_166507" class="voting  guest     ">
+			<a href="#" class="plus" onclick="return ls.vote.vote(166507,this,1,'comment');"></a>
+			<span id="vote_total_comment_166507" class="total">0</span>
+			<a href="#" class="minus" onclick="return ls.vote.vote(166507,this,-1,'comment');"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="https://we.easyelectronics.ru/profile/Bonio/"><img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/avatar_24x24.jpg" alt="avatar" /></a></li>
+		<li class="username"><a href="https://we.easyelectronics.ru/profile/Bonio/">Bonio</a></li>
+		<li class="date">07 января 2016, 14:46</li>
+				<li><a href="#comment166507" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+							</div>    
+			</div>				
+	
+
+			Только зарегистрированные и авторизованные пользователи могут оставлять комментарии.
+		
+
+
+	
+
+
+			
+			</div><!-- /content-inner -->
+		</div><!-- /content -->
+
+					﻿<div id="sidebar">
+
+
+<p>
+<br>
+
+										<div class="block stream" id="block_stream">
+	<h2>Прямой эфир</h2>
+	
+	
+	<ul class="switcher">						
+		<li id="block_stream_item_comment" class="active">Комментарии</li>
+		<li id="block_stream_item_topic">Публикации</li>
+		
+		
+	</ul>					
+	
+	
+	<div class="block-content" id="block_stream_content">
+		<ul class="list">
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/Flint/" class="user">Flint</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/electro-and-pc/esche-nemnogo-o-1-wire-uart.html#comment181923" class="topic-title">Еще немного о 1-wire + UART</a>
+			<span>56</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/electro-and-pc/" class="blog-title">Связь железа с компьютером.</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/penzet/" class="user">penzet</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/CADSoft/kross-platformennyy-terminal---serio-3x.html#comment181922" class="topic-title">Кросс-платформенный терминал - SerIO 3.x</a>
+			<span>25</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/CADSoft/" class="blog-title">Софт для электронщика</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/Gornist/" class="user">Gornist</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/Soft/pip-regulyator.html#comment181919" class="topic-title">PIP регулятор</a>
+			<span>2</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/Soft/" class="blog-title">Алгоритмы и программные решения</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/whoim/" class="user">whoim</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/khomin/cc1101-traktat-o-trassirovke.html#comment181917" class="topic-title">CC1101, Трактат о трассировке</a>
+			<span>89</span> &rarr;
+			<a href="https://we.easyelectronics.ru/my/khomin/" class="blog-title">Блог им. khomin</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/OlegG/" class="user">OlegG</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/sypsoc/chasy-na-bluetooth-le-module.html#comment181916" class="topic-title">Часы на Bluetooth LE модуле</a>
+			<span>8</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/sypsoc/" class="blog-title">Cypress PSoC</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/Technicum505SU/" class="user">Technicum505SU</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/Theory/nyuansy-shim-upravleniya-mikrokontrollerom-dvigatelem-postoyannogo-toka.html#comment181915" class="topic-title">Нюансы ШИМ управления микроконтроллером двигателем постоянного тока</a>
+			<span>3</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/Theory/" class="blog-title">Теория, измерения и расчеты</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/sunjob/" class="user">sunjob</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/grand1987/dds-sintezator-ad9833.html#comment181912" class="topic-title">DDS синтезатор AD9833</a>
+			<span>88</span> &rarr;
+			<a href="https://we.easyelectronics.ru/my/grand1987/" class="blog-title">Блог им. grand1987</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/DIHALT/" class="user">DIHALT</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/part/w801-zhk-ekranchik-i-lozhechka-degtya.html#comment181908" class="topic-title">W801, ЖК-экранчик и ложечка дегтя</a>
+			<span>2</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/part/" class="blog-title">Деталька</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/nictrace/" class="user">nictrace</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/plis/novaya-arduino-sovmestimaya-plata.html#comment181906" class="topic-title">Новая Ардуино-совместимая плата.</a>
+			<span>20</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/plis/" class="blog-title">ПЛИС</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/sunjob/" class="user">sunjob</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/CADSoft/podklyuchenie-kompilyatora-arm-gcc-k-clion.html#comment181905" class="topic-title">Подключение компилятора ARM GCC к CLion</a>
+			<span>1</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/CADSoft/" class="blog-title">Софт для электронщика</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/Vga/" class="user">Vga</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/STM32/crc32-na-stm32-kak-na-kompe-ili-na-kompe-kak-na-stm32.html#comment181903" class="topic-title">CRC32: на STM32 как на компе или на компе как на STM32.</a>
+			<span>58</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/STM32/" class="blog-title">STM32</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/dmitrij999/" class="user">dmitrij999</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/STM32/zahvat-izobrazheniya-s-usb-kamery-pri-pomoschi-stm32.html#comment181888" class="topic-title">Захват изображения с USB камеры при помощи STM32</a>
+			<span>6</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/STM32/" class="blog-title">STM32</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/Gilaks/" class="user">Gilaks</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/Theory/rasshirenie-vozmozhnostey-prostogo-mk-vplot-do-acp-na-2-ili-1-vyvode.html#comment181886" class="topic-title">Расширение возможностей простого МК вплоть до АЦП на 2 или 1 выводе.</a>
+			<span>8</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/Theory/" class="blog-title">Теория, измерения и расчеты</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/sva_omsk/" class="user">sva_omsk</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/CADSoft/lithium-ecad---rossiyskaya-sapr-pechatnyh-plat.html#comment181881" class="topic-title">Lithium ECAD - российская САПР печатных плат</a>
+			<span>40</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/CADSoft/" class="blog-title">Софт для электронщика</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/x893/" class="user">x893</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/part/w801---byudzhetnyy-kontroller-s-wi-fi.html#comment181871" class="topic-title">W801 - бюджетный контроллер с Wi-Fi</a>
+			<span>4</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/part/" class="blog-title">Деталька</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/podkassetnik/" class="user">podkassetnik</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/autoelectro/izmenenie-shtatnoy-podsvetki-schitka-priborov-loganopodobnyh-avtomobiley.html#comment181870" class="topic-title">Изменение штатной подсветки щитка приборов логаноподобных автомобилей</a>
+			<span>5</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/autoelectro/" class="blog-title">Автоэлектроника</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/Vga/" class="user">Vga</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/Soft/rops-rem-object-pascal-script-vstraivaemyy-interpretator-yazyka-pascal-plagin-psimport_classes.html#comment181867" class="topic-title">ROPS (Rem Object Pascal Script) - встраиваемый интерпретатор языка Pascal. Плагин PSImport_Classes</a>
+			<span>3</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/Soft/" class="blog-title">Алгоритмы и программные решения</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/alexeys3/" class="user">alexeys3</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/alexeys3/sdelal-programmator---willem.html#comment181859" class="topic-title">Сделал программатор - WILLEM</a>
+			<span>8</span> &rarr;
+			<a href="https://we.easyelectronics.ru/my/alexeys3/" class="blog-title">Блог им. alexeys3</a>
+		</li>
+									
+		<li class="even">
+			<a href="https://we.easyelectronics.ru/profile/anakost/" class="user">anakost</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/upgrade-repair/modding-uefi-bios-inkapsulyaciya-slic-tablicy.html#comment181854" class="topic-title">Моддинг UEFI BIOS, инкапсуляция SLIC таблицы.</a>
+			<span>11</span> &rarr;
+			<a href="https://we.easyelectronics.ru/blog/upgrade-repair/" class="blog-title">Модернизация и ремонт</a>
+		</li>
+									
+		<li >
+			<a href="https://we.easyelectronics.ru/profile/zelya/" class="user">zelya</a> &rarr;
+			<span class="stream-comment-icon"></span>
+			<a href="https://we.easyelectronics.ru/DareDen/stm8-i-lcd-na-osnove-hd44780.html#comment181849" class="topic-title">STM8 и LCD на основе HD44780</a>
+			<span>44</span> &rarr;
+			<a href="https://we.easyelectronics.ru/my/DareDen/" class="blog-title">Блог им. DareDen</a>
+		</li>
+	</ul>
+
+
+<div class="bottom">
+	<a href="https://we.easyelectronics.ru/comments/">Весь эфир</a> | <a href="https://we.easyelectronics.ru/rss/allcomments/">RSS</a>
+</div>
+	</div>
+</div>
+
+
+															<div class="block tags">
+	<ul class="cloud">						
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/1-Wire/">1-Wire</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/Altera/">Altera</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/arduino/">arduino</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/ARM/">ARM</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/Assembler/">Assembler</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/Atmel/">Atmel</a></li>	
+					<li><a class="w10" rel="tag" href="https://we.easyelectronics.ru/tag/AVR/">AVR</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/C%2B%2B/">C++</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/compel/">compel</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/DIY/">DIY</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/enc28j60/">enc28j60</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/ethernet/">ethernet</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/FPGA/">FPGA</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/gcc/">gcc</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/I2C/">I2C</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/IAR/">IAR</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/KEIL/">KEIL</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/LaunchPad/">LaunchPad</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/LCD/">LCD</a></li>	
+					<li><a class="w4" rel="tag" href="https://we.easyelectronics.ru/tag/led/">led</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/linux/">linux</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/LPCXpresso/">LPCXpresso</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/MSP430/">MSP430</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/nxp/">nxp</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/PCB/">PCB</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/PIC/">PIC</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/pinboard2/">pinboard2</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/RS-485/">RS-485</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/RTOS/">RTOS</a></li>	
+					<li><a class="w10" rel="tag" href="https://we.easyelectronics.ru/tag/STM32/">STM32</a></li>	
+					<li><a class="w6" rel="tag" href="https://we.easyelectronics.ru/tag/STM8/">STM8</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/STM8L/">STM8L</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/TI/">TI</a></li>	
+					<li><a class="w4" rel="tag" href="https://we.easyelectronics.ru/tag/UART/">UART</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/USB/">USB</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC/">алгоритм</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B0%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80/">ассемблер</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%90%D0%A6%D0%9F/">АЦП</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0/">библиотека</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B1%D0%BB%D0%BE%D0%BA%20%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F/">блок питания</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D1%8C%D0%BA%D0%B0/">деталька</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D0%B9/">дисплей</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B8%D0%B4%D0%B5%D1%8F/">идея</a></li>	
+					<li><a class="w6" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82/">инструмент</a></li>	
+					<li><a class="w6" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81/">конкурс</a></li>	
+					<li><a class="w4" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%812/">конкурс2</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%9B%D0%A3%D0%A2/">ЛУТ</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BC%D0%B8%D0%BA%D1%80%D0%BE%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D1%8B/">микроконтроллеры</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B8%D0%BC/">начинающим</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BE%D0%B1%D0%B7%D0%BE%D1%80/">обзор</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%9E%D1%82%D0%BB%D0%B0%D0%B4%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0/">Отладочная плата</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D0%B0%D1%8F%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA/">паяльник</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D0%B5%D1%87%D0%B0%D1%82%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0/">печатная плата</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D0%BB%D0%B0%D1%82%D0%B0/">плата</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%9F%D0%9B%D0%98%D0%A1/">ПЛИС</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D0%BE%D0%B4%D0%B5%D0%BB%D0%BA%D0%B8/">поделки</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B8/">покупки</a></li>	
+					<li><a class="w4" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%82%D0%BE%D1%80/">программатор</a></li>	
+					<li><a class="w4" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/">программирование</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%81%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4/">светодиод</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%81%D0%BE%D1%84%D1%82/">софт</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%81%D1%85%D0%B5%D0%BC%D0%B0/">схема</a></li>	
+					<li><a class="w3" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%81%D1%85%D0%B5%D0%BC%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0/">схемотехника</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8/">Технологии</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%83%D0%BC%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BE%D0%BC/">умный дом</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%84%D0%BE%D1%82%D0%BE%D1%80%D0%B5%D0%B7%D0%B8%D1%81%D1%82/">фоторезист</a></li>	
+					<li><a class="w5" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%85%D0%B0%D0%BB%D1%8F%D0%B2%D0%B0/">халява</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%85%D1%80%D0%B5%D0%BD%D1%8C/">хрень</a></li>	
+					<li><a class="w1" rel="tag" href="https://we.easyelectronics.ru/tag/%D0%A7%D0%B0%D1%81%D1%8B/">Часы</a></li>	
+					<li><a class="w2" rel="tag" href="https://we.easyelectronics.ru/tag/%D1%8E%D0%BC%D0%BE%D1%80/">юмор</a></li>	
+			</ul>
+</div>
+															<div class="block blogs" id="block_blogs">
+	<h2>Блоги</h2>
+	
+	
+	<ul class="switcher">
+		<li id="block_blogs_item_top" class="active">Топ</li>
+			</ul>
+	
+	
+	<div class="block-content" id="block_blogs_content">
+		<ul class="list">
+			<li>
+			<span class="rating">38.98</span>
+			<a href="https://we.easyelectronics.ru/blog/AVR/">AVR</a> 
+					</li>
+			<li>
+			<span class="rating">37.92</span>
+			<a href="https://we.easyelectronics.ru/blog/STM8/">STM8</a> 
+					</li>
+			<li>
+			<span class="rating">29.53</span>
+			<a href="https://we.easyelectronics.ru/blog/JunkBox/">Мусоровоз</a> 
+			<img src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/lock.png" alt="[x]" title="Закрытый блог" />		</li>
+			<li>
+			<span class="rating">28.46</span>
+			<a href="https://we.easyelectronics.ru/blog/STM32/">STM32</a> 
+					</li>
+			<li>
+			<span class="rating">24.63</span>
+			<a href="https://we.easyelectronics.ru/blog/part/">Деталька</a> 
+					</li>
+			<li>
+			<span class="rating">24.04</span>
+			<a href="https://we.easyelectronics.ru/blog/electro-and-pc/">Связь железа с компьютером.</a> 
+					</li>
+			<li>
+			<span class="rating">18.15</span>
+			<a href="https://we.easyelectronics.ru/blog/Shematech/">Схемотехника</a> 
+					</li>
+			<li>
+			<span class="rating">17.75</span>
+			<a href="https://we.easyelectronics.ru/blog/smarthouse/">Умный дом</a> 
+					</li>
+			<li>
+			<span class="rating">17.13</span>
+			<a href="https://we.easyelectronics.ru/blog/msp430/">MSP430</a> 
+					</li>
+			<li>
+			<span class="rating">14.79</span>
+			<a href="https://we.easyelectronics.ru/blog/LPC/">LPC1xxx</a> 
+					</li>
+	</ul>				
+	</div>
+
+	
+	<div class="bottom">
+		<a href="https://we.easyelectronics.ru/blogs/">Все блоги</a>
+	</div>
+</div>
+
+									
+</div>			</div><!-- /wrapper -->
+
+	<div id="footer">
+		<div id="footer-inner">
+			<div class="right">&copy; Powered by <a href="http://livestreetcms.ru">LiveStreet CMS</a></div>
+			Design by — <a href="http://www.xeoart.com">Студия XeoArt</a>
+			<img border="0" src="https://we.easyelectronics.ru/templates/skin/new-jquery/images/xeoart.gif">
+						
+		</div>
+	</div>
+
+</div><!-- /container -->
+
+
+
+
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter4558804 = new Ya.Metrika({id:4558804,
+                    clickmap:true,
+                    trackLinks:true});
+        }
+        catch(e) { }
+    });
+})(window, "yandex_metrika_callbacks");
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/4558804" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</body>
+</html>
